@@ -35,7 +35,7 @@ Web API REST de películas implementando la plantilla de Clean Architecture de J
 
 ### Web API
 #### Movies
-> _**GetAll**_ : Paginación y filtrado por título, género, director/a, actor/actriz 
+> _**GetAll**_ : Paginación y filtrado por título, genero, director/a, actor/actriz 
 <img src="https://user-images.githubusercontent.com/66186644/143806620-26bfaba8-e345-41d9-b4ab-dce05e44aa4a.png"/>
 
 > _**GetById**_ : Detalles de la película, generos, director/a y cast.
