@@ -1,5 +1,5 @@
 # Movies
-Web API REST de películas implementando la plantilla de Clean Architecture de Jason Taylor: _https://github.com/jasontaylordev_.
+Web API REST de películas implementando la plantilla de Clean Architecture de Jason Taylor : _https://github.com/jasontaylordev_.
 
 ## Tecnologías
 * ASP.NET Core Web API 5
