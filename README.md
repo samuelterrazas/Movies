@@ -1,29 +1,34 @@
 # Movies
 Web API REST de películas implementando la plantilla de [Clean Architecture](https://github.com/jasontaylordev/CleanArchitecture) de [Jason Taylor](https://github.com/jasontaylordev).
 
+
 ## Tecnologías
 * ASP.NET Core Web API 5
 * Entity Framework Core 5
 * MediatR
 * AutoMapper
 * FluentValidation
-* NSwag
 * JWT, Identity Entity Framework Core 5
+* NSwag
+* SQL Server
 * Azure
+
+
+## DER
+<img src="https://user-images.githubusercontent.com/66186644/144080567-c99398c5-5fd2-48a2-a242-1e97bddf1b30.png"/>
+
 
 ## Instrucciones
 
-### Configuración de Azure
-* Crear una cuenta de almacenamiento
-* Dirigirse a **Claves de acceso**
-* Copiar la **Cadena de conexión** de la key1
-* Pegarla en el **appsettings.json** > **"ConnectionStrings"** > **"AzureStorage"**
-
-
-### Confifuración de SQL Server
-* La conexión por defecto es **"Server=(localdb)\\MSSQLLocalDB;Database=Movies;Trusted_Connection=True;"**
-* Si desea cambiarla, dirigirse a **appsettings.json** > **"ConnectionStrings"** > **"SQLServerConnection"**
-
+### Configuración del ConnectionStrings para Azure y SQL Server
+* **Azure**: Crear una cuenta de almacenamiento, dirigirse a _Claves de acceso_, copiar la _cadena de conexión_ de la key1 y pegarla en el .json.
+* **SQL Server**: La conexión por defecto es la que se muestra en el .json. La bases de datos utilizada es [SQL Server Express LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15).
+```json
+"ConnectionStrings": {
+  "SQLServerConnection": "Server=(localdb)\\MSSQLLocalDB;Database=Movies;Trusted_Connection=True;",
+  "AzureStorage": ""
+}
+```
 
 ### Migración y ejecución
 * Ejecutar en la terminal:
@@ -32,19 +37,33 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
 * Iniciar el proyecto desde **WebAPI**
 
 
+## Descripción
+
 ### Web API
+
 #### Movies
-> _**GetAll**_ : Paginación y filtrado por título, genero, director/a, actor/actriz 
-<img src="https://user-images.githubusercontent.com/66186644/143806620-26bfaba8-e345-41d9-b4ab-dce05e44aa4a.png"/>
+* [GetAll] : Retorna una lista paginada de películas. Se pueden filtrar por _título_, _género_, _persona_.
 
-> _**GetById**_ : Detalles de la película, generos, director/a y cast.
-<img src="https://user-images.githubusercontent.com/66186644/143934045-96450615-49ec-456f-8dd3-a5643e7e2822.png"/>
+* [GetById] : Retorna los detalles de la película: _título_, _lanzamiento_, _duración_, _calificación_, _resumen_, _imagen_, _géneros_, _cast_.
 
-> _**Create**_ : Para crear una película, se debe hacer por medio de Postman, Insomnia u otro cliente HTTP. Ya que Swagger no soporta las listas compuestas por parámetro a través de [FromForm]. Ejemplo:
-<img src="https://user-images.githubusercontent.com/66186644/143937486-ea7001b3-18c6-4348-a7bb-fa84a52650f2.png"/>
-
-> _summary_ recibe un texto plano. _genres_ es una lista de id's de los generos existentes y _persons_ recibe una lista compuesta por: personId, role, order. El id de una persona existente, el rol que cumple en la película (director: 1, cast: 2) y el orden para que los actores principales vayan primero en la lista al mostrar el resultado.
-<img src="https://user-images.githubusercontent.com/66186644/143938645-7c0a2a4a-1c52-42bb-a77d-411f518a4009.png"/>
+* [Create] & [Update] : Para crear o actualizar una película, se debe hacer por medio de Postman, Insomnia u otro cliente HTTP. Ya que Swagger no soporta las listas compuestas por parámetro a través de [FromForm]. Para el campo de _genres_ se debe pasar una lista de enteros que representa los id's de los géneros existentes. Para el campo _persons_ se debe pasar una lista de objetos compuesta por _personId_, _role_, _order_; _role_ representa el rol que cumple la persona en la película (director/a: 1, cast: 2); _order_ representa el orden en que se deben mostrar los actores para que al principio de la lista aparezcan los principales.
+```json
+[3, 4, 5, 6]
+```
+```json
+[
+  {"personId": 8, "role": 1, "order": 1}, 
+  {"personId": 7, "role": 2, "order": 1}, 
+  {"personId": 6, "role": 2, "order": 2},
+  {"personId": 5, "role": 2, "order": 3},
+  {"personId": 4, "role": 2, "order": 4},
+  {"personId": 3, "role": 2, "order": 5},
+  {"personId": 2, "role": 2, "order": 6},
+  {"personId": 1, "role": 2, "order": 7},
+  {"personId": 18, "role": 2, "order": 8},
+  {"personId": 19, "role": 2, "order": 9}
+]
+```
 
 #### Persons
 > _**GetAll**_ : Paginación y filtrado por nombre
