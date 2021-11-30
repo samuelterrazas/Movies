@@ -1,5 +1,5 @@
 # Movies
-Web API REST de películas implementando la plantilla de Clean Architecture de Jason Taylor : _https://github.com/jasontaylordev_.
+Web API REST de películas implementando la plantilla de [Clean Architecture](https://github.com/jasontaylordev/CleanArchitecture) de [Jason Taylor](https://github.com/jasontaylordev).
 
 ## Tecnologías
 * ASP.NET Core Web API 5
@@ -8,8 +8,7 @@ Web API REST de películas implementando la plantilla de Clean Architecture de J
 * AutoMapper
 * FluentValidation
 * NSwag
-* JWT
-* Identity Entity Framework Core
+* JWT, Identity Entity Framework Core 5
 * Azure
 
 ## Instrucciones
@@ -29,7 +28,7 @@ Web API REST de películas implementando la plantilla de Clean Architecture de J
 ### Migración y ejecución
 * Ejecutar en la terminal:
   * `dotnet ef migrations add "Initial" --project Infrastructure -o Persistence/Migrations --startup-project WebAPI`
-  * `dotnet ef database update --project OngProject.DataAccess --startup-project OngProject`
+  * `dotnet ef database update --project Infrastructure --startup-project WebAPI`
 * Iniciar el proyecto desde **WebAPI**
 
 
