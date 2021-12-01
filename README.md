@@ -34,24 +34,20 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
 * Ejecutar en la terminal:
   * `dotnet ef migrations add "Initial" --project Infrastructure -o Persistence/Migrations --startup-project WebAPI`
   * `dotnet ef database update --project Infrastructure --startup-project WebAPI`
-* Iniciar el proyecto desde **WebAPI**
+* Iniciar el proyecto desde **WebAPI**.
 
 
-## Descripción
+## Observaciones
 
-### Web API
-
-#### Movies
-* [GetAll] : Retorna una lista paginada de películas. Se pueden filtrar por _título_, _género_, _persona_.
-
-* [GetById] : Retorna los detalles de la película: _título_, _lanzamiento_, _duración_, _calificación_, _resumen_, _imagen_, _géneros_, _cast_.
-
-* [Create] & [Update] : Para crear o actualizar una película, se debe hacer por medio de Postman, Insomnia u otro cliente HTTP. Ya que Swagger no soporta las listas compuestas por parámetro a través de [FromForm].
-* Para el campo de _genres_ se debe pasar una lista de enteros que representa los id's de los géneros existentes:
+* Para crear o actualizar una película, se debe hacer por medio de Postman, Insomnia u otro cliente HTTP. Ya que Swagger no soporta las listas compuestas por parámetro a través de [FromForm].
+* Para el campo de _**genres**_ se debe pasar una lista de enteros que representa los id's de los géneros existentes.
 ```json
 [3, 4, 5, 6]
 ```
-* Para el campo _persons_ se debe pasar una lista de objetos compuesta por _personId_, _role_, _order_; _role_ representa el rol que cumple la persona en la película (director/a: 1, cast: 2); _order_ representa el orden en que se deben mostrar los actores para que al principio de la lista aparezcan los principales:
+* Para el campo _**persons**_ se debe pasar una lista de objetos compuesta:
+    * _personId_: id de una persona existente.
+    * _role_: director (1), cast (2).
+    * _order_: para ordenar el cast.
 ```json
 [
   {"personId": 8, "role": 1, "order": 1}, 
@@ -66,17 +62,5 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
   {"personId": 19, "role": 2, "order": 9}
 ]
 ```
-
-* [Delete] : Elimina una película existente por id.
-
-#### Persons
-> _**GetAll**_ : Paginación y filtrado por nombre
-<img src="https://user-images.githubusercontent.com/66186644/143806277-3490bd3f-98e1-4482-bb3c-94aa43843782.png"/>
-
-> _**GetById**_ : Persona y películas en las que participo
-<img src="https://user-images.githubusercontent.com/66186644/143807476-5551ddd1-2785-4970-9d7c-a3e262680d9c.png"/>
-
-
-## Observaciones
 * Faltan las pruebas unitarias y de integración.
 * Hay varias cosas por mejorar y optimizar pero la API es totalmente funcional.
