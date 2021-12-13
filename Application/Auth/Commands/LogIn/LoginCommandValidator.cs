@@ -2,9 +2,9 @@
 
 namespace Movies.Application.Auth.Commands.LogIn
 {
-    public class LogInCommandValidator : AbstractValidator<LogInCommand>
+    public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
-        public LogInCommandValidator()
+        public LoginCommandValidator()
         {
             RuleFor(l => l.Email)
                 .NotEmpty()

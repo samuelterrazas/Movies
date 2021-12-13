@@ -6,12 +6,10 @@ namespace Movies.Application.Common.Interfaces
     {
         Task<object> GetEmailAsync(string email);
 
-        Task<object> GetUserNameAsync(string userName);
-
         Task<bool> CheckUserPasswordAsync(object user, string password);
 
         Task<ITokenParameters> GenerateTokenParametersAsync(object user);
 
-        Task CreateUserAsync(string email, string userName, string password);
+        Task CreateUserAsync(string email, string password);
     }
 }

@@ -38,7 +38,7 @@ namespace Movies.WebAPI
                 {
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-                    logger.LogError(ex, "Se produjo un error al migrar o inicializar la base de datos.");
+                    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
 
                     throw;
                 }

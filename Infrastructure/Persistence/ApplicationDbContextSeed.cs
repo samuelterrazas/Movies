@@ -12,25 +12,23 @@ namespace Movies.Infrastructure.Persistence
         public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager, 
             RoleManager<IdentityRole> roleManager)
         {
-            var administratorRole = new IdentityRole("Administrator");
+            // Roles
+            var adminRole = new IdentityRole("Administrator");
             var userRole = new IdentityRole("User");
 
-            if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
-                await roleManager.CreateAsync(administratorRole);
+            if (roleManager.Roles.All(r => r.Name != adminRole.Name))
+                await roleManager.CreateAsync(adminRole);
 
             if (roleManager.Roles.All(r => r.Name != userRole.Name))
                 await roleManager.CreateAsync(userRole);
+            
+            // Administrator
+            var admin = new ApplicationUser {UserName = "administrator@localhost", Email = "administrator@localhost"};
 
-            var administrator = new ApplicationUser
+            if (userManager.Users.All(u => u.UserName != admin.UserName))
             {
-                UserName = "Admin", 
-                Email = "admin@localhost"
-            };
-
-            if (userManager.Users.All(u => u.UserName != administrator.UserName))
-            {
-                await userManager.CreateAsync(administrator, "Abc123.");
-                await userManager.AddToRoleAsync(administrator, administratorRole.Name);
+                await userManager.CreateAsync(admin, "Abc123.");
+                await userManager.AddToRoleAsync(admin, adminRole.Name);
             }
         }
 

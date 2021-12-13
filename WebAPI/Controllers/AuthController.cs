@@ -8,8 +8,8 @@ using NSwag.Annotations;
 
 namespace Movies.WebAPI.Controllers
 {
-    [Route("api/auth")]
     [ApiController]
+    [Route("api/auth")]
     public class AuthController : ApiControllerBase
     {
         #region Documentation
@@ -18,7 +18,7 @@ namespace Movies.WebAPI.Controllers
         [SwaggerResponse((int)HttpStatusCode.InternalServerError, typeof(ProblemDetails))]
         #endregion
         [HttpPost("signup")]
-        public async Task<ActionResult<Result>> SignUp([FromBody] SignUpCommand command)
+        public async Task<ActionResult<Result>> Signup([FromBody] SignupCommand command)
         {
             return await Mediator.Send(command);
         }
@@ -30,7 +30,7 @@ namespace Movies.WebAPI.Controllers
         [SwaggerResponse((int)HttpStatusCode.InternalServerError, typeof(ProblemDetails))]
         #endregion
         [HttpPost("login")]
-        public async Task<ActionResult<Result>> LogIn([FromBody] LogInCommand command)
+        public async Task<ActionResult<Result>> Login([FromBody] LoginCommand command)
         {
             return await Mediator.Send(command);
         }

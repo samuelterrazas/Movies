@@ -97,7 +97,7 @@ namespace Movies.WebAPI.Filters
         {
             var exception = context.Exception as BadRequestException;
 
-            var details = new ProblemDetails()
+            var details = new ProblemDetails
             {
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
                 Title = "One or more validation failures have occurred.",
@@ -114,7 +114,7 @@ namespace Movies.WebAPI.Filters
         {
             var exception = context.Exception as NotFoundException;
 
-            var details = new ProblemDetails()
+            var details = new ProblemDetails
             {
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
                 Title = "No se encontró el recurso especificado.",

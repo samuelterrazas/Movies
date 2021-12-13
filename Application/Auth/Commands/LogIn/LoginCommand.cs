@@ -7,24 +7,24 @@ using Movies.Application.Common.Models;
 
 namespace Movies.Application.Auth.Commands.LogIn
 {
-    public class LogInCommand : IRequest<Result>
+    public class LoginCommand : IRequest<Result>
     {
         public string Email { get; set; }
         public string Password { get; set; }
     }
 
-    public class LogInCommandHandler : IRequestHandler<LogInCommand, Result>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
     {
         private readonly IIdentityService _identityService;
         private readonly ITokenHandlerService _tokenHandlerService;
 
-        public LogInCommandHandler(IIdentityService identityService, ITokenHandlerService tokenHandlerService)
+        public LoginCommandHandler(IIdentityService identityService, ITokenHandlerService tokenHandlerService)
         {
             _identityService = identityService;
             _tokenHandlerService = tokenHandlerService;
         }
         
-        public async Task<Result> Handle(LogInCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var userExist = await _identityService.GetEmailAsync(request.Email);
 

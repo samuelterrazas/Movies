@@ -20,11 +20,6 @@ namespace Movies.Infrastructure.Identity
             return await _userManager.FindByEmailAsync(email);
         }
 
-        public async Task<object> GetUserNameAsync(string userName)
-        {
-            return await _userManager.FindByNameAsync(userName);
-        }
-
         public async Task<bool> CheckUserPasswordAsync(object user, string password)
         {
             var appUser = user as ApplicationUser;
@@ -46,12 +41,12 @@ namespace Movies.Infrastructure.Identity
             };
         }
 
-        public async Task CreateUserAsync(string email, string userName, string password)
+        public async Task CreateUserAsync(string email, string password)
         {
             var newUser = new ApplicationUser
             {
-                Email = email,
-                UserName = userName
+                UserName = email,
+                Email = email
             };
 
             await _userManager.CreateAsync(newUser, password);

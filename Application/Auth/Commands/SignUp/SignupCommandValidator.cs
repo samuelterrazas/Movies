@@ -2,16 +2,13 @@
 
 namespace Movies.Application.Auth.Commands.SignUp
 {
-    public class SignUpCommandValidator : AbstractValidator<SignUpCommand>
+    public class SignupCommandValidator : AbstractValidator<SignupCommand>
     {
-        public SignUpCommandValidator()
+        public SignupCommandValidator()
         {
             RuleFor(s => s.Email)
                 .NotEmpty()
                 .EmailAddress();
-
-            RuleFor(s => s.UserName)
-                .NotEmpty();
 
             RuleFor(s => s.Password)
                 .NotEmpty()
