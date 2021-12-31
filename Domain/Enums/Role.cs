@@ -1,8 +1,7 @@
-﻿namespace Movies.Domain.Enums
+﻿namespace Movies.Domain.Enums;
+
+public enum Role
 {
-    public enum Role
-    {
-        Director = 1,
-        Cast = 2
-    }
+    Director = 1,
+    Cast = 2
 }

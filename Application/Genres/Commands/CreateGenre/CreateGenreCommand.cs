@@ -1,37 +1,37 @@
 ﻿using AutoMapper;
 using MediatR;
+using Movies.Domain.Entities;
 using Movies.Application.Common.Interfaces;
 using Movies.Application.Common.Mappings;
-using Movies.Domain.Entities;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Movies.Application.Genres.Commands.CreateGenre
+namespace Movies.Application.Genres.Commands.CreateGenre;
+
+public class CreateGenreCommand : IRequest<int>, IMapFrom<Genre>
 {
-    public class CreateGenreCommand : IRequest<int>, IMapFrom<Genre>
+    public string Name { get; set; }
+}
+
+public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int>
+{
+    private readonly IApplicationDbContext _dbContext;
+    private readonly IMapper _mapper;
+
+    public CreateGenreCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
     {
-        public string Name { get; set; }
+        _dbContext = dbContext;
+        _mapper = mapper;
     }
 
-    public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int>
+    public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
     {
-        private readonly IApplicationDbContext _dbContext;
-        private readonly IMapper _mapper;
-
-        public CreateGenreCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+        var genre = new Genre
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
-        }
+            Name = request.Name
+        };
 
-        public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
-        {
-            var genre = _mapper.Map<Genre>(request);
+        _dbContext.Genres.Add(genre);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
-            _dbContext.Genres.Add(genre);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-
-            return genre.Id;
-        }
+        return genre.Id;
     }
 }

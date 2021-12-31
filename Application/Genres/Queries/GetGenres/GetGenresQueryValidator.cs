@@ -1,16 +1,15 @@
 ﻿using FluentValidation;
 
-namespace Movies.Application.Genres.Queries.GetGenres
-{
-    public class GetGenresQueryValidator : AbstractValidator<GetGenresQuery>
-    {
-        public GetGenresQueryValidator()
-        {
-            RuleFor(g => g.PageNumber)
-                .GreaterThanOrEqualTo(1);
+namespace Movies.Application.Genres.Queries.GetGenres;
 
-            RuleFor(g => g.PageSize)
-                .GreaterThanOrEqualTo(1);
-        }
+public class GetGenresQueryValidator : AbstractValidator<GetGenresQuery>
+{
+    public GetGenresQueryValidator()
+    {
+        RuleFor(g => g.PageNumber)
+            .GreaterThanOrEqualTo(1);
+
+        RuleFor(g => g.PageSize)
+            .GreaterThanOrEqualTo(1);
     }
 }

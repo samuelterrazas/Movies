@@ -1,15 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿namespace Movies.Application.Common.Interfaces;
 
-namespace Movies.Application.Common.Interfaces
+public interface IIdentityService
 {
-    public interface IIdentityService
-    {
-        Task<object> GetEmailAsync(string email);
+    Task<object> GetEmailAsync(string email);
 
-        Task<bool> CheckUserPasswordAsync(object user, string password);
+    Task<bool> CheckUserPasswordAsync(object user, string password);
 
-        Task<ITokenParameters> GenerateTokenParametersAsync(object user);
+    Task<ITokenParameters> GenerateTokenParametersAsync(object user);
 
-        Task CreateUserAsync(string email, string password);
-    }
+    Task CreateUserAsync(string email, string password);
 }

@@ -1,14 +1,13 @@
 ﻿using FluentValidation;
 
-namespace Movies.Application.Genres.Commands.UpdateGenre
+namespace Movies.Application.Genres.Commands.UpdateGenre;
+
+public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
 {
-    public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
+    public UpdateGenreCommandValidator()
     {
-        public UpdateGenreCommandValidator()
-        {
-            RuleFor(g => g.Name)
-                .NotEmpty()
-                .MaximumLength(50);
-        }
+        RuleFor(g => g.Name)
+            .NotEmpty()
+            .MaximumLength(50);
     }
 }

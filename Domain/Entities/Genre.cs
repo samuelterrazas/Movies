@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Movies.Domain.Common;
+﻿using Movies.Domain.Common;
 
-namespace Movies.Domain.Entities
+namespace Movies.Domain.Entities;
+
+public class Genre : AuditableEntity
 {
-    public class Genre : AuditableEntity
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<MovieGenre> MovieGenres { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public List<MovieGenre> MovieGenres { get; set; }
 }

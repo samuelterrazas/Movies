@@ -1,7 +1,6 @@
-﻿namespace Movies.Application.Common.Interfaces
+﻿namespace Movies.Application.Common.Interfaces;
+
+public interface ITokenHandlerService
 {
-    public interface ITokenHandlerService
-    {
-        string GenerateJwtToken(ITokenParameters parameters);
-    }
+    string GenerateJwtToken(ITokenParameters parameters);
 }

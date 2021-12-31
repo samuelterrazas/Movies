@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 
-namespace Movies.Application.Common.Mappings
+namespace Movies.Application.Common.Mappings;
+
+public interface IMapFrom<T>
 {
-    public interface IMapFrom<T>
-    {
-        void Mapping(Profile profile) => profile.CreateMap(typeof(T), GetType()).ReverseMap();
-    }
+    void Mapping(Profile profile) => profile.CreateMap(typeof(T), GetType()).ReverseMap();
 }

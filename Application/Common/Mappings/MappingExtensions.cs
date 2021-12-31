@@ -1,6 +1,4 @@
-﻿using Movies.Application.Common.Models;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Movies.Application.Common.Wrappers;
 
 namespace Movies.Application.Common.Mappings
 {

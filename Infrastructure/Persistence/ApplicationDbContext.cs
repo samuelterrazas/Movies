@@ -1,18 +1,15 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Movies.Application.Common.Interfaces;
 using Movies.Domain.Entities;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Movies.Application.Common.Interfaces;
 using Movies.Domain.Common;
 using Movies.Infrastructure.Identity;
 
-namespace Movies.Infrastructure.Persistence
-{
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+namespace Movies.Infrastructure.Persistence;
+
+ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
@@ -68,4 +65,3 @@ namespace Movies.Infrastructure.Persistence
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
         }
     }
-}

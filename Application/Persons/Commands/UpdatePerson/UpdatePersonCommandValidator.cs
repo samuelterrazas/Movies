@@ -1,14 +1,13 @@
 ﻿using FluentValidation;
 
-namespace Movies.Application.Persons.Commands.UpdatePerson
+namespace Movies.Application.Persons.Commands.UpdatePerson;
+
+public class UpdatePersonCommandValidator : AbstractValidator<UpdatePersonCommand>
 {
-    public class UpdatePersonCommandValidator : AbstractValidator<UpdatePersonCommand>
+    public UpdatePersonCommandValidator()
     {
-        public UpdatePersonCommandValidator()
-        {
-            RuleFor(p => p.FullName)
-                .NotEmpty()
-                .MaximumLength(100);
-        }
+        RuleFor(p => p.FullName)
+            .NotEmpty()
+            .MaximumLength(100);
     }
 }

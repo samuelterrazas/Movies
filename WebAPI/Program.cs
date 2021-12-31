@@ -1,56 +1,60 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Movies.Infrastructure.Persistence;
-using System;
-using System.Threading.Tasks;
-using Movies.Infrastructure.Identity;
+﻿using FluentValidation.AspNetCore;
+using Movies.Application;
+using Movies.Infrastructure;
+using Movies.WebAPI.Filters;
+using Movies.WebAPI.Middlewares;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
-namespace Movies.WebAPI
+// Services
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddApplicationLayer();
+builder.Services.AddInfrastructureLayer(builder.Configuration);
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddControllers(options => 
+        options.Filters.Add<ApiExceptionFilterAttribute>())
+    .AddFluentValidation(f => f.AutomaticValidationEnabled = false);
+    
+builder.Services.AddOpenApiDocument(configure =>
 {
-    public class Program
+    configure.Title = "Movies API";
+    configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
     {
-        public static async Task Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
+        Type = OpenApiSecuritySchemeType.ApiKey,
+        In = OpenApiSecurityApiKeyLocation.Header,
+        Name = "Authorization",
+        Description = "Type into the text box: Bearer {your JWT token}"
+    });
+    configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+});
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+// App
+var app = builder.Build();
 
-                try
-                {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-
-                    if (context.Database.IsSqlServer())
-                        context.Database.Migrate();
-
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-                    await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
-                    await ApplicationDbContextSeed.SeedSampleDataAsync(context);
-                }
-                catch (Exception ex)
-                {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-
-                    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
-
-                    throw;
-                }
-            }
-            await host.RunAsync();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseOpenApi(settings => settings.Path = "api/docs/{documentName}/specification.json");
+    app.UseSwaggerUi3(settings =>
+    {
+        settings.DocumentPath = "api/docs/{documentName}/specification.json";
+        settings.Path = "/api/docs";
+    });
 }
+
+//app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
