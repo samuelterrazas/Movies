@@ -1,36 +1,21 @@
-﻿using AutoMapper;
-using MediatR;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
-using Movies.Application.Common.DTOs;
-using Movies.Application.Common.Interfaces;
-using Movies.Application.Common.Mappings;
-using Movies.Application.Common.Wrappers;
+﻿namespace Movies.Application.Genres.Queries.GetGenres;
 
-namespace Movies.Application.Genres.Queries.GetGenres;
+public record GetGenresQuery() : IRequest<List<GenresDto>>;
 
-public class GetGenresQuery : IRequest<PaginatedResponse<GenreDto>>
-{
-    public int PageNumber { get; set; } = 1;
-    public int PageSize { get; set; } = 10;
-}
-
-public class GetGenresQueryHandler : IRequestHandler<GetGenresQuery, PaginatedResponse<GenreDto>>
+public class GetGenresQueryHandler : IRequestHandler<GetGenresQuery, List<GenresDto>>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public GetGenresQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetGenresQueryHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        _mapper = mapper;
     }
         
-    public async Task<PaginatedResponse<GenreDto>> Handle(GetGenresQuery request, CancellationToken cancellationToken)
+    public async Task<List<GenresDto>> Handle(GetGenresQuery request, CancellationToken cancellationToken)
     {
         return await _dbContext.Genres
             .AsNoTracking()
-            .ProjectTo<GenreDto>(_mapper.ConfigurationProvider)
-            .PaginatedResponseAsync(request.PageNumber, request.PageSize);
+            .Select(genre => (GenresDto)genre)
+            .ToListAsync(cancellationToken);
     }
 }

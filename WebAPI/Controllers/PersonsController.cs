@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Application.Common.DTOs;
 using Movies.Application.Persons.Commands.CreatePerson;
 using Movies.Application.Persons.Commands.DeletePerson;
 using Movies.Application.Persons.Commands.UpdatePerson;
-using Movies.Application.Persons.DTOs;
 using Movies.Application.Persons.Queries.GetPersons;
 using Movies.Application.Persons.Queries.GetPersonDetails;
 using Movies.Application.Common.Wrappers;
@@ -15,13 +15,13 @@ namespace Movies.WebAPI.Controllers;
 public class PersonsController : ApiControllerBase
 {
     #region Documentation
-    [SwaggerResponse((int)HttpStatusCode.OK, typeof(PaginatedResponse<PersonDto>))]
+    [SwaggerResponse((int)HttpStatusCode.OK, typeof(PaginatedResponse<PersonsDto>))]
     [SwaggerResponse((int)HttpStatusCode.Unauthorized, typeof(ProblemDetails))]
     [SwaggerResponse((int)HttpStatusCode.InternalServerError, typeof(ProblemDetails))]
     #endregion
     [HttpGet]
     //[Authorize(Roles = "Administrator, User")]
-    public async Task<ActionResult<PaginatedResponse<PersonDto>>> GetAll([FromQuery] GetPersonsQuery query)
+    public async Task<ActionResult<PaginatedResponse<PersonsDto>>> GetAll([FromQuery] GetPersonsQuery query)
     {
         return await Mediator.Send(query);
     }
@@ -38,7 +38,7 @@ public class PersonsController : ApiControllerBase
     //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult<PersonDetailsDto>> GetDetails(int id)
     {
-        return await Mediator.Send(new GetPersonDetailsQuery {Id = id});
+        return await Mediator.Send(new GetPersonDetailsQuery(id));
     }
 
 
@@ -86,7 +86,7 @@ public class PersonsController : ApiControllerBase
     //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Delete(int id)
     {
-        await Mediator.Send(new DeletePersonCommand { Id = id });
+        await Mediator.Send(new DeletePersonCommand(id));
 
         return NoContent();
     }

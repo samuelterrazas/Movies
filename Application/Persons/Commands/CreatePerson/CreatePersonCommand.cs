@@ -1,30 +1,19 @@
-﻿using AutoMapper;
-using MediatR;
-using Movies.Domain.Entities;
-using Movies.Application.Common.Interfaces;
-using Movies.Application.Common.Mappings;
+﻿namespace Movies.Application.Persons.Commands.CreatePerson;
 
-namespace Movies.Application.Persons.Commands.CreatePerson;
-
-public class CreatePersonCommand : IRequest<int>, IMapFrom<Person>
-{
-    public string FullName { get; set; }
-}
+public record CreatePersonCommand(string FullName) : IRequest<int>;
 
 public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, int>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public CreatePersonCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public CreatePersonCommandHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        _mapper = mapper;
     }
         
     public async Task<int> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
     {
-        var person = _mapper.Map<Person>(request);
+        var person = new Person {FullName = request.FullName};
 
         _dbContext.Persons.Add(person);
         await _dbContext.SaveChangesAsync(cancellationToken);

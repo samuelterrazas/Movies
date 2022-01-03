@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Movies.Application.Common.Behaviours;
 
@@ -10,7 +8,6 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddMediatR(Assembly.GetExecutingAssembly());
 

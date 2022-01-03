@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Movies.Application.Common.Wrappers;
+﻿namespace Movies.Application.Common.Wrappers;
 
 public class PaginatedResponse<T>
 {
-    public PaginatedResponse(int pageIndex, int pageSize, int count, List<T> items)
+    private PaginatedResponse(int pageIndex, int pageSize, int count, List<T> items)
     {
         PageIndex = pageIndex;
         TotalPages = (int)Math.Ceiling(count / (double)pageSize);

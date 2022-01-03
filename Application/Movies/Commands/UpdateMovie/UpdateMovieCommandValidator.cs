@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Movies.Application.Movies.Commands.UpdateMovie;
+﻿namespace Movies.Application.Movies.Commands.UpdateMovie;
 
 public class UpdateMovieCommandValidator : AbstractValidator<UpdateMovieCommand>
 {
@@ -17,7 +15,7 @@ public class UpdateMovieCommandValidator : AbstractValidator<UpdateMovieCommand>
 
         RuleFor(m => m.Duration)
             .NotEmpty()
-            .MaximumLength(30);
+            .MaximumLength(10);
 
         RuleFor(m => m.MaturityRating)
             .NotEmpty()
@@ -26,11 +24,6 @@ public class UpdateMovieCommandValidator : AbstractValidator<UpdateMovieCommand>
         RuleFor(m => m.Summary)
             .NotEmpty()
             .MaximumLength(1200);
-
-        RuleFor(m => m.Image.Length)
-            .LessThanOrEqualTo(10485760).WithMessage("File size is bigger than 10 MB.");
-        RuleFor(m => m.Image.ContentType)
-            .Must(i => i.Equals("image/jpeg") || i.Equals("image/png")).WithMessage("File extension is not valid.");
 
         RuleFor(m => m.Genres)
             .NotEmpty();

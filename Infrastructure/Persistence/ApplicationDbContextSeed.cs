@@ -45,7 +45,7 @@ public static class ApplicationDbContextSeed
             {
                 Title = "Bastardos sin gloria",
                 Release = 2009,
-                Duration = "2 h 32 min",
+                Duration = "02:34",
                 MaturityRating = "18+",
                 Summary = "Es el primer año de la ocupación alemana de Francia. El oficial aliado, teniente Aldo Raine, ensambla un equipo de " +
                 "soldados judíos para cometer actos violentos en contra de los nazis, incluyendo la toma de cabelleras. Él y sus hombres unen " +
@@ -149,7 +149,7 @@ public static class ApplicationDbContextSeed
             {
                 Title = "El lobo de Wall Street",
                 Release = 2013,
-                Duration = "2 h 59 min",
+                Duration = "03:00",
                 MaturityRating = "18+",
                 Summary = "Jordan Belfort es un ambicioso corredor de bolsa que asciende a niveles enormes de " +
                 "riqueza, pero sus métodos no son del todo legales.",

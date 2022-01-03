@@ -1,10 +1,6 @@
-﻿using Movies.Application.Common.Mappings;
-using Movies.Domain.Entities;
+﻿namespace Movies.Application.Common.DTOs;
 
-namespace Movies.Application.Common.DTOs;
-
-public class GenreDto : IMapFrom<Genre>
+public record GenresDto(int Id, string Name)
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+    public static explicit operator GenresDto(Genre genre) => new(genre.Id, genre.Name);
 }

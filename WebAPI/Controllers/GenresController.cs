@@ -1,11 +1,10 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Application.Common.DTOs;
 using Movies.Application.Genres.Commands.CreateGenre;
 using Movies.Application.Genres.Commands.DeleteGenre;
 using Movies.Application.Genres.Commands.UpdateGenre;
-using Movies.Application.Common.DTOs;
 using Movies.Application.Genres.Queries.GetGenres;
-using Movies.Application.Common.Wrappers;
 using NSwag.Annotations;
 
 namespace Movies.WebAPI.Controllers;
@@ -14,15 +13,15 @@ namespace Movies.WebAPI.Controllers;
 public class GenresController : ApiControllerBase
 {
     #region Documentation
-    [SwaggerResponse((int)HttpStatusCode.OK, typeof(PaginatedResponse<GenreDto>))]
+    [SwaggerResponse((int)HttpStatusCode.OK, typeof(List<GenresDto>))]
     [SwaggerResponse((int)HttpStatusCode.Unauthorized, typeof(ProblemDetails))]
     [SwaggerResponse((int)HttpStatusCode.InternalServerError, typeof(ProblemDetails))]
     #endregion
     [HttpGet]
     //[Authorize(Roles = "Administrator, User")]
-    public async Task<ActionResult<PaginatedResponse<GenreDto>>> GetAll([FromQuery] GetGenresQuery query)
+    public async Task<ActionResult<List<GenresDto>>> GetAll()
     {
-        return await Mediator.Send(query);
+        return await Mediator.Send(new GetGenresQuery());
     }
 
 
@@ -70,7 +69,7 @@ public class GenresController : ApiControllerBase
     //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Delete(int id)
     {
-        await Mediator.Send(new DeleteGenreCommand { Id = id });
+        await Mediator.Send(new DeleteGenreCommand(id));
 
         return NoContent();
     }

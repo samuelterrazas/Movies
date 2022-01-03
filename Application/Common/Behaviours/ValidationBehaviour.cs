@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-using ValidationException = Movies.Application.Common.Exceptions.ValidationException;
+﻿using ValidationException = Movies.Application.Common.Exceptions.ValidationException;
 
 namespace Movies.Application.Common.Behaviours;
 

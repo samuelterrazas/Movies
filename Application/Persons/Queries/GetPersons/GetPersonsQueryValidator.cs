@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Movies.Application.Persons.Queries.GetPersons;
+﻿namespace Movies.Application.Persons.Queries.GetPersons;
 
 public class GetPersonsQueryValidator : AbstractValidator<GetPersonsQuery>
 {
@@ -11,5 +9,9 @@ public class GetPersonsQueryValidator : AbstractValidator<GetPersonsQuery>
 
         RuleFor(p => p.PageSize)
             .GreaterThanOrEqualTo(1);
+
+        RuleFor(p => p.Name)
+            .MinimumLength(3)
+            .MaximumLength(100);
     }
 }

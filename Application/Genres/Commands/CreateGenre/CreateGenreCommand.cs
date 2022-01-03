@@ -1,33 +1,19 @@
-﻿using AutoMapper;
-using MediatR;
-using Movies.Domain.Entities;
-using Movies.Application.Common.Interfaces;
-using Movies.Application.Common.Mappings;
+﻿namespace Movies.Application.Genres.Commands.CreateGenre;
 
-namespace Movies.Application.Genres.Commands.CreateGenre;
-
-public class CreateGenreCommand : IRequest<int>, IMapFrom<Genre>
-{
-    public string Name { get; set; }
-}
+public record CreateGenreCommand(string Name) : IRequest<int>;
 
 public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IMapper _mapper;
 
-    public CreateGenreCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public CreateGenreCommandHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        _mapper = mapper;
     }
 
     public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
     {
-        var genre = new Genre
-        {
-            Name = request.Name
-        };
+        var genre = new Genre {Name = request.Name};
 
         _dbContext.Genres.Add(genre);
         await _dbContext.SaveChangesAsync(cancellationToken);

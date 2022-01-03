@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Movies.Application.Persons.Commands.CreatePerson;
+﻿namespace Movies.Application.Persons.Commands.CreatePerson;
 
 public class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
 {

@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Movies.Application.Auth.Commands.SignUp;
+﻿namespace Movies.Application.Auth.Commands.SignUp;
 
 public class SignupCommandValidator : AbstractValidator<SignupCommand>
 {

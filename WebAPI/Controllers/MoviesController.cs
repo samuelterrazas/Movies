@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Application.Common.DTOs;
 using Movies.Application.Movies.Commands.CreateMovie;
 using Movies.Application.Movies.Commands.DeleteMovie;
 using Movies.Application.Movies.Commands.UpdateMovie;
-using Movies.Application.Movies.DTOs;
 using Movies.Application.Movies.Queries.GetMovieDetails;
 using Movies.Application.Movies.Queries.GetMovies;
 using Movies.Application.Common.Wrappers;
@@ -15,13 +15,13 @@ namespace Movies.WebAPI.Controllers;
 public class MoviesController : ApiControllerBase
 {
     #region Documentation
-    [SwaggerResponse((int)HttpStatusCode.OK, typeof(PaginatedResponse<MovieDto>))]
+    [SwaggerResponse((int)HttpStatusCode.OK, typeof(PaginatedResponse<MoviesDto>))]
     [SwaggerResponse((int)HttpStatusCode.Unauthorized, typeof(ProblemDetails))]
     [SwaggerResponse((int)HttpStatusCode.InternalServerError, typeof(ProblemDetails))]
     #endregion
     [HttpGet]
     //[Authorize(Roles = "Administrator, User")]
-    public async Task<ActionResult<PaginatedResponse<MovieDto>>> GetAll([FromQuery] GetMoviesQuery query)
+    public async Task<ActionResult<PaginatedResponse<MoviesDto>>> GetAll([FromQuery] GetMoviesQuery query)
     {
         return await Mediator.Send(query);
     }
@@ -37,7 +37,7 @@ public class MoviesController : ApiControllerBase
     //[Authorize(Roles = "Administrator, User")]
     public async Task<ActionResult<MovieDetailsDto>> GetDetails(int id)
     {
-        return await Mediator.Send(new GetMovieDetailsQuery { Id = id });
+        return await Mediator.Send(new GetMovieDetailsQuery(id));
     }
 
 
@@ -50,7 +50,7 @@ public class MoviesController : ApiControllerBase
     #endregion
     [HttpPost]
     //[Authorize(Roles = "Administrator")]
-    public async Task<ActionResult<int>> Create([FromForm] CreateMovieCommand command)
+    public async Task<ActionResult<int>> Create([FromBody] CreateMovieCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -66,7 +66,7 @@ public class MoviesController : ApiControllerBase
     #endregion
     [HttpPut("{id}")]
     //[Authorize(Roles = "Administrator")]
-    public async Task<ActionResult> Update(int id, [FromForm] UpdateMovieCommand command)
+    public async Task<ActionResult> Update(int id, [FromBody] UpdateMovieCommand command)
     {
         await Mediator.Send(command);
 
@@ -85,7 +85,7 @@ public class MoviesController : ApiControllerBase
     //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Delete(int id)
     {
-        await Mediator.Send(new DeleteMovieCommand { Id = id });
+        await Mediator.Send(new DeleteMovieCommand(id));
 
         return NoContent();
     }

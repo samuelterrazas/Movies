@@ -1,14 +1,6 @@
-﻿using MediatR;
-using Movies.Domain.Entities;
-using Movies.Application.Common.Exceptions;
-using Movies.Application.Common.Interfaces;
+﻿namespace Movies.Application.Persons.Commands.DeletePerson;
 
-namespace Movies.Application.Persons.Commands.DeletePerson;
-
-public class DeletePersonCommand : IRequest
-{
-    public int Id { get; set; }
-}
+public record DeletePersonCommand(int Id) : IRequest;
 
 public class DeletePersonCommandHandler : IRequestHandler<DeletePersonCommand>
 {
@@ -21,7 +13,7 @@ public class DeletePersonCommandHandler : IRequestHandler<DeletePersonCommand>
         
     public async Task<Unit> Handle(DeletePersonCommand request, CancellationToken cancellationToken)
     {
-        var person = await _dbContext.Persons.FindAsync(request.Id);
+        var person = await _dbContext.Persons.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
         if (person is null)
             throw new NotFoundException(nameof(Person), request.Id);

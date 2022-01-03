@@ -1,0 +1,9 @@
+﻿global using MediatR;
+global using FluentValidation;
+global using Microsoft.EntityFrameworkCore;
+global using Movies.Domain.Entities;
+global using Movies.Application.Common.Interfaces;
+global using Movies.Application.Common.DTOs;
+global using Movies.Application.Common.Exceptions;
+global using Movies.Application.Common.Extensions;
+global using Movies.Application.Common.Wrappers;

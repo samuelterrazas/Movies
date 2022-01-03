@@ -1,14 +1,6 @@
-﻿using MediatR;
-using Movies.Domain.Entities;
-using Movies.Application.Common.Exceptions;
-using Movies.Application.Common.Interfaces;
+﻿namespace Movies.Application.Genres.Commands.DeleteGenre;
 
-namespace Movies.Application.Genres.Commands.DeleteGenre;
-
-public class DeleteGenreCommand : IRequest
-{
-    public int Id { get; set; }
-}
+public record DeleteGenreCommand(int Id) : IRequest;
 
 public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand>
 {
@@ -21,7 +13,7 @@ public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand>
         
     public async Task<Unit> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
     {
-        var genre = await _dbContext.Genres.FindAsync(request.Id);
+        var genre = await _dbContext.Genres.FirstOrDefaultAsync(g => g.Id == request.Id, cancellationToken);
 
         if (genre is null)
             throw new NotFoundException(nameof(Genre), request.Id);

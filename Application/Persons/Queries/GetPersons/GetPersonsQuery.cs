@@ -1,42 +1,28 @@
-﻿using AutoMapper;
-using MediatR;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
-using Movies.Application.Common.Interfaces;
-using Movies.Application.Common.Mappings;
-using Movies.Application.Persons.DTOs;
-using Movies.Application.Common.Wrappers;
+﻿namespace Movies.Application.Persons.Queries.GetPersons;
 
-namespace Movies.Application.Persons.Queries.GetPersons;
+public record GetPersonsQuery(int PageNumber, int PageSize, string Name) : IRequest<PaginatedResponse<PersonsDto>>;
 
-public class GetPersonsQuery : IRequest<PaginatedResponse<PersonDto>>
+public class GetPersonsQueryHandler : IRequestHandler<GetPersonsQuery, PaginatedResponse<PersonsDto>>
 {
-    public int PageNumber { get; set; } = 1;
-    public int PageSize { get; set; } = 10;
-    public string Name { get; set; }
-}
+    private readonly IApplicationDbContext _dbContext;
 
-public class GetPersonsQueryHandler : IRequestHandler<GetPersonsQuery, PaginatedResponse<PersonDto>>
-{
-    private readonly IApplicationDbContext _dbContext; 
-    private readonly IMapper _mapper;
-
-    public GetPersonsQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+    public GetPersonsQueryHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        _mapper = mapper;
     }
         
-    public async Task<PaginatedResponse<PersonDto>> Handle(GetPersonsQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedResponse<PersonsDto>> Handle(GetPersonsQuery request, CancellationToken cancellationToken)
     {
+        var (pageNumber, pageSize, name) = request;
+        
         var persons = _dbContext.Persons.AsQueryable();
 
-        if (!string.IsNullOrEmpty(request.Name))
-            persons = persons.Where(p => p.FullName.Contains(request.Name));
+        if (!string.IsNullOrEmpty(name))
+            persons = persons.Where(p => p.FullName.Contains(name));
             
         return await persons
             .AsNoTracking()
-            .ProjectTo<PersonDto>(_mapper.ConfigurationProvider)
-            .PaginatedResponseAsync(request.PageNumber, request.PageSize);
+            .Select(person => (PersonsDto)person)
+            .PaginatedResponseAsync(pageNumber, pageSize);
     }
 }

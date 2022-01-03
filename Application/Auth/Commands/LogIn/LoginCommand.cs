@@ -1,7 +1,4 @@
-﻿using MediatR;
-using Movies.Application.Common.Exceptions;
-using Movies.Application.Common.Interfaces;
-using Movies.Application.Common.Wrappers;
+﻿using Movies.Application.Common.Wrappers;
 
 namespace Movies.Application.Auth.Commands.LogIn;
 
