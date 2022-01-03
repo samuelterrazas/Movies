@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace Movies.Application.Common.Exceptions;
+namespace Movies.Common.Exceptions;
 
 public class ValidationException : Exception
 {

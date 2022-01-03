@@ -2,8 +2,9 @@
 global using FluentValidation;
 global using Microsoft.EntityFrameworkCore;
 global using Movies.Domain.Entities;
-global using Movies.Application.Common.Interfaces;
-global using Movies.Application.Common.DTOs;
-global using Movies.Application.Common.Exceptions;
-global using Movies.Application.Common.Extensions;
-global using Movies.Application.Common.Wrappers;
+global using Movies.Domain.Enums;
+global using Movies.Common.Interfaces;
+global using Movies.Common.DTOs;
+global using Movies.Common.Exceptions;
+global using Movies.Common.Extensions;
+global using Movies.Common.Wrappers;

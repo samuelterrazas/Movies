@@ -1,4 +1,6 @@
-﻿namespace Movies.Application.Common.DTOs;
+﻿using Movies.Domain.Entities;
+
+namespace Movies.Common.DTOs;
 
 public record GenresDto(int Id, string Name)
 {

@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-using Movies.Application.Common.Behaviours;
+﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using Movies.Common.Behaviours;
 
 namespace Movies.Application;
 

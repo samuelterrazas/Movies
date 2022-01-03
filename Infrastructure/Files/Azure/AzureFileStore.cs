@@ -1,7 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
-using Movies.Application.Common.Interfaces;
+using Movies.Common.Interfaces;
 
 namespace Movies.Infrastructure.Files.Azure;
 

@@ -1,4 +1,6 @@
-﻿namespace Movies.Application.Common.DTOs;
+﻿using Movies.Domain.Entities;
+
+namespace Movies.Common.DTOs;
 
 public record PersonsDto(int Id, string FullName)
 {

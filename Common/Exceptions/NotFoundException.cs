@@ -1,4 +1,4 @@
-﻿namespace Movies.Application.Common.Exceptions;
+﻿namespace Movies.Common.Exceptions;
 
 public class NotFoundException : Exception
 {

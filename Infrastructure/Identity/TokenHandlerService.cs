@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Movies.Application.Common.Interfaces;
+using Movies.Common.Interfaces;
 
 namespace Movies.Infrastructure.Identity;
 

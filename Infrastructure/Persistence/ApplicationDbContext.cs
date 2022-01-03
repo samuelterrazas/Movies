@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Movies.Domain.Entities;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
-using Movies.Application.Common.Interfaces;
+using Movies.Common.Interfaces;
 using Movies.Domain.Common;
 using Movies.Infrastructure.Identity;
 

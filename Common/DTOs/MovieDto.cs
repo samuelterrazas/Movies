@@ -1,6 +1,7 @@
-﻿using Movies.Domain.Enums;
+﻿using Movies.Domain.Entities;
+using Movies.Domain.Enums;
 
-namespace Movies.Application.Common.DTOs;
+namespace Movies.Common.DTOs;
 
 public record MoviesDto(int Id, string Title, string Image)
 {

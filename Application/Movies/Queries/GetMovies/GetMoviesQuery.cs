@@ -1,8 +1,4 @@
-﻿using Movies.Domain.Enums;
-using Movies.Application.Common.Extensions;
-using Movies.Application.Common.Wrappers;
-
-namespace Movies.Application.Movies.Queries.GetMovies;
+﻿namespace Movies.Application.Movies.Queries.GetMovies;
 
 public record GetMoviesQuery
 (

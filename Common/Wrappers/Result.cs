@@ -1,4 +1,4 @@
-﻿namespace Movies.Application.Common.Wrappers;
+﻿namespace Movies.Common.Wrappers;
 
 public class Result
 {

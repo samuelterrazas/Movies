@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Movies.Infrastructure.Identity;
 using Movies.Infrastructure.Persistence;
 using System.Text;
-using Movies.Application.Common.Interfaces;
+using Movies.Common.Interfaces;
 using Movies.Infrastructure.Files.Azure;
 
 namespace Movies.Infrastructure;

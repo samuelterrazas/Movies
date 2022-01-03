@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Common.DTOs;
+using Movies.Common.DTOs;
 using Movies.Application.Genres.Commands.CreateGenre;
 using Movies.Application.Genres.Commands.DeleteGenre;
 using Movies.Application.Genres.Commands.UpdateGenre;

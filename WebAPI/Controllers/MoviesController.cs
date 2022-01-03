@@ -1,12 +1,12 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Common.DTOs;
+using Movies.Common.DTOs;
 using Movies.Application.Movies.Commands.CreateMovie;
 using Movies.Application.Movies.Commands.DeleteMovie;
 using Movies.Application.Movies.Commands.UpdateMovie;
 using Movies.Application.Movies.Queries.GetMovieDetails;
 using Movies.Application.Movies.Queries.GetMovies;
-using Movies.Application.Common.Wrappers;
+using Movies.Common.Wrappers;
 using NSwag.Annotations;
 
 namespace Movies.WebAPI.Controllers;

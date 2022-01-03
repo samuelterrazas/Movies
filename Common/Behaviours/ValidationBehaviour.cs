@@ -1,6 +1,8 @@
-﻿using ValidationException = Movies.Application.Common.Exceptions.ValidationException;
+﻿using FluentValidation;
+using MediatR;
+using ValidationException = Movies.Common.Exceptions.ValidationException;
 
-namespace Movies.Application.Common.Behaviours;
+namespace Movies.Common.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {

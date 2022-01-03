@@ -1,4 +1,4 @@
-﻿namespace Movies.Application.Common.Interfaces;
+﻿namespace Movies.Common.Interfaces;
 
 public interface IIdentityService
 {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Auth.Commands.LogIn;
 using Movies.Application.Auth.Commands.SignUp;
-using Movies.Application.Common.Wrappers;
+using Movies.Common.Wrappers;
 using NSwag.Annotations;
 
 namespace Movies.WebAPI.Controllers;

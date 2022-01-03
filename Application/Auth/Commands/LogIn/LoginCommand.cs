@@ -1,6 +1,4 @@
-﻿using Movies.Application.Common.Wrappers;
-
-namespace Movies.Application.Auth.Commands.LogIn;
+﻿namespace Movies.Application.Auth.Commands.LogIn;
 
 public class LoginCommand : IRequest<Result>
 {

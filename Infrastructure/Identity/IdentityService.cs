@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Movies.Application.Common.Interfaces;
+using Movies.Common.Interfaces;
 
 namespace Movies.Infrastructure.Identity;
 

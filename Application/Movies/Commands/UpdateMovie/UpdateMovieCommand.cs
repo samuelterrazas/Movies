@@ -1,6 +1,4 @@
-﻿using Movies.Domain.Enums;
-
-namespace Movies.Application.Movies.Commands.UpdateMovie;
+﻿namespace Movies.Application.Movies.Commands.UpdateMovie;
 
 public record UpdateMovieCommand
 (

@@ -1,5 +1,6 @@
 ﻿using FluentValidation.AspNetCore;
 using Movies.Application;
+using Movies.Common;
 using Movies.Infrastructure;
 using Movies.WebAPI.Filters;
 using Movies.WebAPI.Middlewares;
@@ -10,6 +11,7 @@ using NSwag.Generation.Processors.Security;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationLayer();
+//builder.Services.AddCommonLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();

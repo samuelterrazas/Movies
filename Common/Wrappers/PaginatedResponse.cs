@@ -1,4 +1,6 @@
-﻿namespace Movies.Application.Common.Wrappers;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Movies.Common.Wrappers;
 
 public class PaginatedResponse<T>
 {

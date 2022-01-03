@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Movies.Application.Common.Exceptions;
+using Movies.Common.Exceptions;
 
 namespace Movies.WebAPI.Filters;
 

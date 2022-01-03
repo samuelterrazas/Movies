@@ -1,6 +1,4 @@
-﻿using Movies.Application.Common.Wrappers;
-
-namespace Movies.Application.Auth.Commands.SignUp;
+﻿namespace Movies.Application.Auth.Commands.SignUp;
 
 public class SignupCommand : IRequest<Result>
 {
