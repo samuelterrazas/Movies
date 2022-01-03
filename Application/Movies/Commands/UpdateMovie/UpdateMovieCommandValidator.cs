@@ -30,8 +30,12 @@ public class UpdateMovieCommandValidator : AbstractValidator<UpdateMovieCommand>
 
         RuleFor(m => m.Persons)
             .NotEmpty()
-            .ForEach(i => i.ChildRules(j => j.RuleFor(k => k.Role)
-                .LessThanOrEqualTo(2)
-                .GreaterThanOrEqualTo(1)));
+            .ForEach(initialCollection => 
+                initialCollection.ChildRules(inlineValidator => 
+                    inlineValidator.RuleFor(moviePersonDto => moviePersonDto.Role)
+                        .LessThanOrEqualTo(2)
+                        .GreaterThanOrEqualTo(1)
+                )
+            );
     }
 }

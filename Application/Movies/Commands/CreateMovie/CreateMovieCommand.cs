@@ -1,6 +1,4 @@
-﻿using Movies.Domain.Enums;
-
-namespace Movies.Application.Movies.Commands.CreateMovie;
+﻿namespace Movies.Application.Movies.Commands.CreateMovie;
 
 public record CreateMovieCommand
 (
