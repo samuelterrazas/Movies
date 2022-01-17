@@ -9,7 +9,7 @@ using Movies.Infrastructure.Identity;
 using Movies.Infrastructure.Persistence;
 using System.Text;
 using Movies.Common.Interfaces;
-using Movies.Infrastructure.Files.Azure;
+using Movies.Infrastructure.Azure;
 
 namespace Movies.Infrastructure;
 

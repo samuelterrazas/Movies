@@ -30,9 +30,9 @@ public class CreateMovieCommandValidator : AbstractValidator<CreateMovieCommand>
 
         RuleFor(m => m.Persons)
             .NotEmpty()
-            .ForEach(initialCollection => 
-                initialCollection.ChildRules(inlineValidator => 
-                    inlineValidator.RuleFor(moviePersonDto => moviePersonDto.Role)
+            .ForEach(initialCollection => initialCollection
+                .ChildRules(inlineValidator => inlineValidator
+                    .RuleFor(moviePersonDto => moviePersonDto.Role)
                         .LessThanOrEqualTo(2)
                         .GreaterThanOrEqualTo(1)
                 )

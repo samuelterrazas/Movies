@@ -2,6 +2,7 @@
 using Movies.Domain.Entities;
 using Movies.Domain.Enums;
 using Movies.Infrastructure.Identity;
+using File = Movies.Domain.Entities.File;
 
 namespace Movies.Infrastructure.Persistence;
 
@@ -33,12 +34,12 @@ public static class ApplicationDbContextSeed
     {
         if(!dbContext.Movies.Any())
         {
-            Genre warlike = new() { Name = "Bélico" };
-            Genre action = new() { Name = "Acción" };
-            Genre drama = new() { Name = "Drama" };
-            Genre blackHumor = new() { Name = "Humor negro" };
-            Genre comedy = new() { Name = "Comedia" };
-            Genre biographical = new() { Name = "Biográfico" };
+            Genre warlike = new() {Name = "Bélico"};
+            Genre action = new() {Name = "Acción"};
+            Genre drama = new() {Name = "Drama"};
+            Genre blackHumor = new() {Name = "Humor negro"};
+            Genre comedy = new() {Name = "Comedia"};
+            Genre biographical = new() {Name = "Biográfico"};
 
             #region Movie: Inglourious Basterds
             Movie inglouriousBasterds = new()
@@ -50,8 +51,7 @@ public static class ApplicationDbContextSeed
                 Summary = "Es el primer año de la ocupación alemana de Francia. El oficial aliado, teniente Aldo Raine, ensambla un equipo de " +
                 "soldados judíos para cometer actos violentos en contra de los nazis, incluyendo la toma de cabelleras. Él y sus hombres unen " +
                 "fuerzas con Bridget von Hammersmark, una actriz alemana y agente encubierto, para derrocar a los líderes del Tercer Reich. Sus destinos " +
-                "convergen con la dueña de teatro Shosanna Dreyfus, quien busca vengar la ejecución de su familia.",
-                Image = ""
+                "convergen con la dueña de teatro Shosanna Dreyfus, quien busca vengar la ejecución de su familia."
             };
 
             dbContext.MovieGenres.AddRange(
@@ -81,69 +81,69 @@ public static class ApplicationDbContextSeed
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Quentin Tarantino" },
+                    Person = new Person {FullName = "Quentin Tarantino"},
                     Role = Role.Director,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Brad Pitt" },
+                    Person = new Person {FullName = "Brad Pitt"},
                     Role = Role.Cast,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Christoph Waltz" },
+                    Person = new Person {FullName = "Christoph Waltz"},
                     Role = Role.Cast,
                     Order = 2
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Michael Fassbender" },
+                    Person = new Person {FullName = "Michael Fassbender"},
                     Role = Role.Cast,
                     Order = 3
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Eli Roth" },
+                    Person = new Person {FullName = "Eli Roth"},
                     Role = Role.Cast,
                     Order = 4
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Diane Kruger" },
+                    Person = new Person {FullName = "Diane Kruger"},
                     Role = Role.Cast,
                     Order = 5
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Daniel Brühl" },
+                    Person = new Person {FullName = "Daniel Brühl"},
                     Role = Role.Cast,
                     Order = 6
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Til Schweiger" },
+                    Person = new Person {FullName = "Til Schweiger"},
                     Role = Role.Cast,
                     Order = 7
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
-                    Person = new Person { FullName = "Mélanie Laurent" },
+                    Person = new Person {FullName = "Mélanie Laurent"},
                     Role = Role.Cast,
                     Order = 8
                 }
             );
             #endregion
-
+            
             #region Movie: The Wolf of Wall Street
             Movie theWolfOfWallStreet = new()
             {
@@ -152,8 +152,7 @@ public static class ApplicationDbContextSeed
                 Duration = "03:00",
                 MaturityRating = "18+",
                 Summary = "Jordan Belfort es un ambicioso corredor de bolsa que asciende a niveles enormes de " +
-                "riqueza, pero sus métodos no son del todo legales.",
-                Image = ""
+                "riqueza, pero sus métodos no son del todo legales."
             };
 
             dbContext.MovieGenres.AddRange(
@@ -183,70 +182,70 @@ public static class ApplicationDbContextSeed
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Martin Scorsese" },
+                    Person = new Person {FullName = "Martin Scorsese"},
                     Role = Role.Director,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Leonardo DiCaprio" },
+                    Person = new Person {FullName = "Leonardo DiCaprio"},
                     Role = Role.Cast,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Jonah Hill" },
+                    Person = new Person {FullName = "Jonah Hill"},
                     Role = Role.Cast,
                     Order = 2
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Margot Robbie" },
+                    Person = new Person {FullName = "Margot Robbie"},
                     Role = Role.Cast,
                     Order = 3
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Matthew McConaughey" },
+                    Person = new Person {FullName = "Matthew McConaughey"},
                     Role = Role.Cast,
                     Order = 4
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Kyle Chandler" },
+                    Person = new Person {FullName = "Kyle Chandler"},
                     Role = Role.Cast,
                     Order = 5
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Rob Reiner" },
+                    Person = new Person {FullName = "Rob Reiner"},
                     Role = Role.Cast,
                     Order = 6
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Jon Bernthal" },
+                    Person = new Person {FullName = "Jon Bernthal"},
                     Role = Role.Cast,
                     Order = 7
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Jon Favreau" },
+                    Person = new Person {FullName = "Jon Favreau"},
                     Role = Role.Cast,
                     Order = 8
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
-                    Person = new Person { FullName = "Jean Dujardin" },
+                    Person = new Person {FullName = "Jean Dujardin"},
                     Role = Role.Cast,
                     Order = 9
                 }

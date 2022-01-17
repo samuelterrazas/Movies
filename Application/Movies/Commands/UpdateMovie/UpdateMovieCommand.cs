@@ -1,7 +1,6 @@
 ﻿namespace Movies.Application.Movies.Commands.UpdateMovie;
 
-public record UpdateMovieCommand
-(
+public record UpdateMovieCommand(
     int Id,
     string Title,
     int Release,

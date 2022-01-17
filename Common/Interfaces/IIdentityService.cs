@@ -1,12 +1,16 @@
-﻿namespace Movies.Common.Interfaces;
+﻿using Movies.Common.Wrappers;
+
+namespace Movies.Common.Interfaces;
 
 public interface IIdentityService
 {
     Task<object> GetEmailAsync(string email);
 
-    Task<bool> CheckUserPasswordAsync(object user, string password);
+    Task<bool> CheckPasswordAsync(object user, string password);
 
+    Task<Result> CreateAsync(string email, string password);
+
+    Task<Result> AddToRoleAsync(string email, string role);
+    
     Task<ITokenParameters> GenerateTokenParametersAsync(object user);
-
-    Task CreateUserAsync(string email, string password);
 }

@@ -1,10 +1,6 @@
 ﻿namespace Movies.Application.Auth.Commands.LogIn;
 
-public class LoginCommand : IRequest<Result>
-{
-    public string Email { get; set; }
-    public string Password { get; set; }
-}
+public record LoginCommand(string Email, string Password) : IRequest<Result>;
 
 public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
 {
@@ -24,7 +20,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
         if (userExist is null)
             throw new BadRequestException("Incorrect email or password.");
 
-        var isCorrect = await _identityService.CheckUserPasswordAsync(userExist, request.Password);
+        var isCorrect = await _identityService.CheckPasswordAsync(userExist, request.Password);
 
         if (!isCorrect)
             throw new BadRequestException("Incorrect email or password.");

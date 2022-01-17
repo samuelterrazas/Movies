@@ -1,6 +1,7 @@
 ﻿using FluentValidation.AspNetCore;
 using Movies.Application;
 using Movies.Infrastructure;
+using Movies.Infrastructure.Persistence;
 using Movies.WebAPI.Filters;
 using Movies.WebAPI.Middlewares;
 using NSwag;
@@ -33,6 +34,24 @@ builder.Services.AddOpenApiDocument(configure =>
 
 // App
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+
+        await ApplicationDbContextSeed.SeedSampleDataAsync(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating or seeding the database");
+        throw;
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {

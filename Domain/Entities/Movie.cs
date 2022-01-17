@@ -1,4 +1,5 @@
-﻿using Movies.Domain.Common;
+﻿using System.Collections;
+using Movies.Domain.Common;
 
 namespace Movies.Domain.Entities;
 
@@ -10,7 +11,7 @@ public class Movie : AuditableEntity
     public string Duration { get; set; }
     public string MaturityRating { get; set; }
     public string Summary { get; set; }
-    public string Image { get; set; }
+    public List<File> Files { get; set; }
     public List<MovieGenre> MovieGenres { get; set; }
     public List<MoviePerson> MoviePersons { get; set; }
 }

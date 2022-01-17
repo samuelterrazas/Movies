@@ -41,7 +41,7 @@ namespace Movies.WebAPI.Filters;
             return;
         }
 
-        HandleUnknownException(context);
+        //HandleUnknownException(context);
     }
 
     private static void HandleInvalidModelStateException(ExceptionContext context)
@@ -52,7 +52,6 @@ namespace Movies.WebAPI.Filters;
         };
 
         context.Result = new BadRequestObjectResult(details);
-
         context.ExceptionHandled = true;
     }
     
@@ -67,11 +66,7 @@ namespace Movies.WebAPI.Filters;
             Detail = context.Exception.Message
         };
 
-        context.Result = new ObjectResult(details)
-        {
-            StatusCode = StatusCodes.Status500InternalServerError
-        };
-
+        context.Result = new ObjectResult(details) {StatusCode = StatusCodes.Status500InternalServerError};
         context.ExceptionHandled = true;
     }
     
@@ -86,7 +81,6 @@ namespace Movies.WebAPI.Filters;
         };
 
         context.Result = new BadRequestObjectResult(details);
-
         context.ExceptionHandled = true;
     }
     
@@ -102,7 +96,6 @@ namespace Movies.WebAPI.Filters;
         };
 
         context.Result = new BadRequestObjectResult(details);
-
         context.ExceptionHandled = true;
     }
 
@@ -119,7 +112,6 @@ namespace Movies.WebAPI.Filters;
         };
 
         context.Result = new NotFoundObjectResult(details);
-
         context.ExceptionHandled = true;
     }
 }

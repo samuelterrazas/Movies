@@ -1,53 +1,51 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Movies.Common.Interfaces;
+using Movies.Common.Wrappers;
 
 namespace Movies.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private const string DefaultRole = "User";
 
     public IdentityService(UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
     }
         
-    public async Task<object> GetEmailAsync(string email)
-    {
-        return await _userManager.FindByEmailAsync(email);
-    }
+    public async Task<object> GetEmailAsync(string email) => await _userManager.FindByEmailAsync(email);
 
-    public async Task<bool> CheckUserPasswordAsync(object user, string password)
+    public async Task<bool> CheckPasswordAsync(object user, string password)
     {
         var appUser = user as ApplicationUser;
             
         return await _userManager.CheckPasswordAsync(appUser, password);
     }
 
+    public async Task<Result> CreateAsync(string email, string password)
+    {
+        var newUser = new ApplicationUser {UserName = email, Email = email};
+
+        var result = await _userManager.CreateAsync(newUser, password);
+
+        return result.ToApplicationResult();
+    }
+
+    public async Task<Result> AddToRoleAsync(string email, string role)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        var result = await _userManager.AddToRoleAsync(user, role);
+
+        return result.ToApplicationResult();
+    }
+    
     public async Task<ITokenParameters> GenerateTokenParametersAsync(object user)
     {
         var appUser = user as ApplicationUser;
 
         var role = (await _userManager.GetRolesAsync(appUser)).Single();
 
-        return new TokenParameters
-        {
-            Id = appUser.Id,
-            Email = appUser.Email,
-            Role = role
-        };
-    }
-
-    public async Task CreateUserAsync(string email, string password)
-    {
-        var newUser = new ApplicationUser
-        {
-            UserName = email,
-            Email = email
-        };
-
-        await _userManager.CreateAsync(newUser, password);
-        await _userManager.AddToRoleAsync(newUser, DefaultRole);
+        return new TokenParameters {Id = appUser?.Id, Email = appUser?.Email, Role = role};
     }
 }

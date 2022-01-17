@@ -2,7 +2,7 @@
 
 public interface ITokenParameters
 {
-    string Id { get; set; }
-    string Email { get; set; }
-    string Role { get; set; }
+    string Id { get; init; }
+    string Email { get; init; }
+    string Role { get; init; }
 }

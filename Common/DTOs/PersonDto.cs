@@ -10,12 +10,19 @@ public record PersonsDto(int Id, string FullName)
 public record PersonDetailsDto(int Id, string FullName, List<MoviesDto> Movies)
 {
     public static explicit operator PersonDetailsDto(Person person)
-        => new
-        (
+        => new(
             person.Id,
             person.FullName,
             person.MoviePersons
-                .Select(moviePerson => new MoviesDto(moviePerson.MovieId, moviePerson.Movie.Title, moviePerson.Movie.Image))
+                .Select(moviePerson => 
+                    new MoviesDto(
+                        moviePerson.MovieId, 
+                        moviePerson.Movie.Title,
+                        moviePerson.Movie.Files
+                            .Select(file => new FilesDto(file.Id, file.Url))
+                            .ToList()
+                    )
+                )
                 .ToList()
         );
 }

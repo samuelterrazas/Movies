@@ -3,35 +3,42 @@ using Movies.Domain.Enums;
 
 namespace Movies.Common.DTOs;
 
-public record MoviesDto(int Id, string Title, string Image)
+public record MoviesDto(int Id, string Title, List<FilesDto> Images)
 {
-    public static explicit operator MoviesDto(Movie movie) => new(movie.Id, movie.Title, movie.Image);
+    public static explicit operator MoviesDto(Movie movie) 
+        => new(
+            movie.Id, 
+            movie.Title,
+            movie.Files
+                .Select(file => new FilesDto(file.Id, file.Url))
+                .ToList()
+        );
 }
 
-public record MovieDetailsDto
-(
-    int Id,
-    string Title,
-    int Release,
-    string Duration,
-    string MaturityRating,
+public record MovieDetailsDto(
+    int Id, 
+    string Title, 
+    int Release, 
+    string Duration, 
+    string MaturityRating, 
     string Summary,
-    string Image,
-    List<GenresDto> Genres,
-    List<PersonsDto> DirectedBy,
+    List<FilesDto> Images,
+    List<GenresDto> Genres, 
+    List<PersonsDto> DirectedBy, 
     List<PersonsDto> Cast
 )
 {
     public static explicit operator MovieDetailsDto(Movie movie)
-        => new
-        (
+        => new(
             movie.Id,
             movie.Title,
             movie.Release,
             movie.Duration,
             movie.MaturityRating,
             movie.Summary,
-            movie.Image,
+            movie.Files
+                .Select(file => new FilesDto(file.Id, file.Url))
+                .ToList(),
             movie.MovieGenres
                 .Select(movieGenre => new GenresDto(movieGenre.GenreId, movieGenre.Genre.Name))
                 .ToList(),

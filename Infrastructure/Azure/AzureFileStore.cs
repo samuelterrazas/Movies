@@ -3,7 +3,7 @@ using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
 using Movies.Common.Interfaces;
 
-namespace Movies.Infrastructure.Files.Azure;
+namespace Movies.Infrastructure.Azure;
 
 public class AzureFileStore : IFileStore
 {

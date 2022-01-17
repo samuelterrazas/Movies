@@ -28,10 +28,6 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
             .IsRequired()
             .HasMaxLength(1500);
 
-        builder.Property(m => m.Image)
-            .IsRequired()
-            .HasMaxLength(200);
-            
         builder.Property(m => m.Created)
             .HasColumnType("SMALLDATETIME");
             

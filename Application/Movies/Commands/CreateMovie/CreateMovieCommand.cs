@@ -1,7 +1,6 @@
 ﻿namespace Movies.Application.Movies.Commands.CreateMovie;
 
-public record CreateMovieCommand
-(
+public record CreateMovieCommand(
     string Title,
     int Release,
     string Duration,

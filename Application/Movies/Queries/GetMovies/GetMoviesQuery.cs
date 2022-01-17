@@ -1,7 +1,6 @@
 ﻿namespace Movies.Application.Movies.Queries.GetMovies;
 
-public record GetMoviesQuery
-(
+public record GetMoviesQuery(
     int PageNumber,
     int PageSize,
     string Title,
@@ -45,6 +44,7 @@ public class GetMoviesQueryHandler : IRequestHandler<GetMoviesQuery, PaginatedRe
 
         return await movies
             .AsNoTracking()
+            .Include(movie => movie.Files)
             .OrderByDescending(movie => movie.Release)
             .Select(movie => (MoviesDto)movie)
             .PaginatedResponseAsync(request.PageNumber, request.PageSize);

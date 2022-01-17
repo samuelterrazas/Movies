@@ -1,15 +1,11 @@
 ﻿namespace Movies.Application.Auth.Commands.SignUp;
 
-public class SignupCommand : IRequest<Result>
-{
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public string ConfirmPassword { get; set; }
-}
+public record SignupCommand(string Email, string Password, string ConfirmPassword) : IRequest<Result>;
 
 public class SignupCommandHandler : IRequestHandler<SignupCommand, Result>
 {
     private readonly IIdentityService _identityService;
+    private const string DefaultRole = "User";
 
     public SignupCommandHandler(IIdentityService identityService)
     {
@@ -22,8 +18,16 @@ public class SignupCommandHandler : IRequestHandler<SignupCommand, Result>
             
         if (emailExist is not null)
             throw new BadRequestException("Email already exist.");
+        
+        var isCreated = await _identityService.CreateAsync(request.Email, request.Password);
+        
+        if (!isCreated.Succeeded)
+            return Result.Failure(isCreated.Errors);
 
-        await _identityService.CreateUserAsync(request.Email, request.Password);
+        var addToRole = await _identityService.AddToRoleAsync(request.Email, DefaultRole);
+        
+        if (!addToRole.Succeeded)
+            return Result.Failure(addToRole.Errors);
 
         return Result.Success();
     }

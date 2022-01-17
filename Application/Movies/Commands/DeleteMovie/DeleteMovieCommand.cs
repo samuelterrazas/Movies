@@ -5,13 +5,10 @@ public record DeleteMovieCommand(int Id) : IRequest;
 public class DeleteMovieCommandHandler : IRequestHandler<DeleteMovieCommand>
 {
     private readonly IApplicationDbContext _dbContext;
-    private readonly IFileStore _fileStore;
-    private const string Container = "movies";
 
-    public DeleteMovieCommandHandler(IApplicationDbContext dbContext, IFileStore fileStore)
+    public DeleteMovieCommandHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        _fileStore = fileStore;
     }
         
     public async Task<Unit> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
@@ -22,7 +19,6 @@ public class DeleteMovieCommandHandler : IRequestHandler<DeleteMovieCommand>
             throw new NotFoundException(nameof(Movie), request.Id);
 
         _dbContext.Movies.Remove(movie);
-        await _fileStore.DeleteFile(movie.Image, Container);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
