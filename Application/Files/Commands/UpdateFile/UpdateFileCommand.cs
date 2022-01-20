@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Movies.Domain.Enums;
 using File = Movies.Domain.Entities.File;
 
 namespace Movies.Application.Files.Commands.UpdateFile;
@@ -34,11 +33,13 @@ public class UpdateFileCommandHandler : IRequestHandler<UpdateFileCommand>
 
         var content = memoryStream.ToArray();
         var extension = Path.GetExtension(request.Image.FileName);
+        
         var image = await _fileStore.EditFile(content, extension, Enum.GetName(Container.Movies)?.ToLower(), file.Url, 
             request.Image.ContentType);
 
         file.MovieId = request.MovieId;
         file.Url = image;
+        
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

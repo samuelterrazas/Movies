@@ -2,7 +2,6 @@
 using Movies.Domain.Entities;
 using Movies.Domain.Enums;
 using Movies.Infrastructure.Identity;
-using File = Movies.Domain.Entities.File;
 
 namespace Movies.Infrastructure.Persistence;
 

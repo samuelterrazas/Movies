@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Movies.Domain.Enums;
 using File = Movies.Domain.Entities.File;
 
 namespace Movies.Application.Files.Commands.UploadFile;
@@ -29,7 +28,9 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, objec
 
         var content = memoryStream.ToArray();
         var extension = Path.GetExtension(request.Image.FileName);
-        var image = await _fileStore.SaveFile(content, extension, Enum.GetName(Container.Movies)?.ToLower(), request.Image.ContentType);
+        
+        var image = await _fileStore.SaveFile(content, extension, Enum.GetName(Container.Movies)?.ToLower(), 
+            request.Image.ContentType);
 
         var file = new File {MovieId = request.MovieId, Url = image};
 

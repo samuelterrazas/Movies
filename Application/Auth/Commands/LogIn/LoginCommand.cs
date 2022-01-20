@@ -12,7 +12,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
         _identityService = identityService;
         _tokenHandlerService = tokenHandlerService;
     }
-        
+
     public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var userExist = await _identityService.GetEmailAsync(request.Email);

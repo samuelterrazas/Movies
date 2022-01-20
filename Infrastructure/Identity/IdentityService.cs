@@ -17,7 +17,7 @@ public class IdentityService : IIdentityService
 
     public async Task<bool> CheckPasswordAsync(object user, string password)
     {
-        var appUser = user as ApplicationUser;
+        var appUser = (ApplicationUser)user;
             
         return await _userManager.CheckPasswordAsync(appUser, password);
     }
@@ -42,9 +42,9 @@ public class IdentityService : IIdentityService
     
     public async Task<ITokenParameters> GenerateTokenParametersAsync(object user)
     {
-        var appUser = user as ApplicationUser;
+        var appUser = (ApplicationUser)user;
 
-        var role = (await _userManager.GetRolesAsync(appUser)).Single();
+        var role = (await _userManager.GetRolesAsync(appUser)).First();
 
         return new TokenParameters {Id = appUser?.Id, Email = appUser?.Email, Role = role};
     }

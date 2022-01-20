@@ -1,6 +1,9 @@
 ﻿using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Movies.Application;
 using Movies.Infrastructure;
+using Movies.Infrastructure.Identity;
 using Movies.Infrastructure.Persistence;
 using Movies.WebAPI.Filters;
 using Movies.WebAPI.Middlewares;
@@ -18,6 +21,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers(options => 
         options.Filters.Add<ApiExceptionFilterAttribute>())
     .AddFluentValidation(f => f.AutomaticValidationEnabled = false);
+
+builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
     
 builder.Services.AddOpenApiDocument(configure =>
 {
@@ -42,8 +47,11 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
         await ApplicationDbContextSeed.SeedSampleDataAsync(context);
+        await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
     }
     catch (Exception ex)
     {

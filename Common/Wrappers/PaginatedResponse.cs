@@ -4,7 +4,7 @@ namespace Movies.Common.Wrappers;
 
 public class PaginatedResponse<T>
 {
-    private PaginatedResponse(int pageIndex, int pageSize, int count, List<T> items)
+    private PaginatedResponse(int pageIndex, int pageSize, int count, IEnumerable<T> items)
     {
         PageIndex = pageIndex;
         TotalPages = (int)Math.Ceiling(count / (double)pageSize);
@@ -15,7 +15,7 @@ public class PaginatedResponse<T>
     public int PageIndex { get; }
     public int TotalPages { get; }
     public int TotalCount { get; }
-    public List<T> Items { get; }
+    public IEnumerable<T> Items { get; }
         
     public bool HasPreviousPage => PageIndex > 1;
 

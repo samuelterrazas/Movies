@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Movies.Common.Exceptions;
+using Movies.Common.Wrappers;
 
 namespace Movies.WebAPI.Filters;
 
@@ -41,7 +44,7 @@ namespace Movies.WebAPI.Filters;
             return;
         }
 
-        //HandleUnknownException(context);
+        HandleUnknownException(context);
     }
 
     private static void HandleInvalidModelStateException(ExceptionContext context)
@@ -58,24 +61,43 @@ namespace Movies.WebAPI.Filters;
     // StatusCode 500
     private static void HandleUnknownException(ExceptionContext context)
     {
-        var details = new ProblemDetails
+        var details = new ExceptionDetails
         {
-            Status = StatusCodes.Status500InternalServerError,
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+            Reference = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
             Title = "An error occurred while processing your request.",
-            Detail = context.Exception.Message
+            StatusCode = StatusCodes.Status500InternalServerError,
+            Message = $"{context.Exception.Message} {Details(context.Exception)}"
         };
 
         context.Result = new ObjectResult(details) {StatusCode = StatusCodes.Status500InternalServerError};
         context.ExceptionHandled = true;
     }
+
+    private static string Details(Exception ex)
+    {
+        var stackTrace = new StackTrace(ex, true);
+        var frames = stackTrace.GetFrames();
+        var traceStr = new StringBuilder();
+
+        foreach (var frame in frames)
+        {
+            if(frame?.GetFileLineNumber() < 1)
+                continue;
+
+            traceStr.Append($"File: {frame.GetFileName()?.Split("\\").Last()}");
+            traceStr.Append($", LineNumber: {frame?.GetFileLineNumber()}");
+            traceStr.Append(' ');
+        }
+
+        return Convert.ToString(traceStr);
+    }
     
     // StatusCode 400
     private static void HandleValidationException(ExceptionContext context)
     {
-        var exception = context.Exception as ValidationException;
+        var exception = (ValidationException)context.Exception;
 
-        var details = new ValidationProblemDetails(exception?.Errors)
+        var details = new ValidationProblemDetails(exception.Errors)
         {
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
         };
@@ -84,15 +106,16 @@ namespace Movies.WebAPI.Filters;
         context.ExceptionHandled = true;
     }
     
+    // StatusCode 400
     private static void HandleBadRequestException(ExceptionContext context)
     {
-        var exception = context.Exception as BadRequestException;
+        var exception = (BadRequestException)context.Exception;
 
         var details = new ProblemDetails
         {
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
             Title = "One or more validation failures have occurred.",
-            Detail = exception?.Message
+            Detail = exception.Message
         };
 
         context.Result = new BadRequestObjectResult(details);
@@ -102,13 +125,13 @@ namespace Movies.WebAPI.Filters;
     // StatusCode 404
     private static void HandleNotFoundException(ExceptionContext context)
     {
-        var exception = context.Exception as NotFoundException;
+        var exception = (NotFoundException)context.Exception;
 
         var details = new ProblemDetails
         {
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
             Title = "The specified resource was not found.",
-            Detail = exception?.Message
+            Detail = exception.Message
         };
 
         context.Result = new NotFoundObjectResult(details);
