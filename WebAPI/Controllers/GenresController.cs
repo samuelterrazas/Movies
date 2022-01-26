@@ -12,7 +12,7 @@ namespace Movies.WebAPI.Controllers;
 public class GenresController : ApiControllerBase
 {
     [HttpGet]
-    [Authorize(Roles = "Administrator, User")]
+    //[Authorize(Roles = "Administrator, User")]
     public async Task<ActionResult<List<GenresDto>>> GetAll()
     {
         return await Mediator.Send(new GetGenresQuery());
@@ -20,7 +20,7 @@ public class GenresController : ApiControllerBase
 
     
     [HttpPost]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult<int>> Create([FromBody] CreateGenreCommand command)
     {
         return await Mediator.Send(command);
@@ -28,7 +28,7 @@ public class GenresController : ApiControllerBase
 
     
     [HttpPut("{id}")]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Update(int id, [FromBody] UpdateGenreCommand command)
     {
         command = command with {Id = id};
@@ -39,7 +39,7 @@ public class GenresController : ApiControllerBase
 
     
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Delete(int id)
     {
         await Mediator.Send(new DeleteGenreCommand(id));

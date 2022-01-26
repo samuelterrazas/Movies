@@ -49,9 +49,12 @@ namespace Movies.WebAPI.Filters;
 
     private static void HandleInvalidModelStateException(ExceptionContext context)
     {
-        var details = new ValidationProblemDetails(context.ModelState)
+        var details = new ExceptionDetails
         {
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Title = "One or more validation failures have occurred.",
+            StatusCode = 400,
+            Message = context.ModelState
         };
 
         context.Result = new BadRequestObjectResult(details);
@@ -66,7 +69,13 @@ namespace Movies.WebAPI.Filters;
             Reference = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
             Title = "An error occurred while processing your request.",
             StatusCode = StatusCodes.Status500InternalServerError,
-            Message = $"{context.Exception.Message} {Details(context.Exception)}"
+            Message = new Dictionary<string, string>
+            {
+                {"Source", context.Exception.Source},
+                {"TargetSite", Convert.ToString(context.Exception.TargetSite)},
+                {"Message", context.Exception.Message},
+                {"File", Details(context.Exception)}
+            }
         };
 
         context.Result = new ObjectResult(details) {StatusCode = StatusCodes.Status500InternalServerError};
@@ -81,25 +90,28 @@ namespace Movies.WebAPI.Filters;
 
         foreach (var frame in frames)
         {
-            if(frame?.GetFileLineNumber() < 1)
+            if(frame.GetFileLineNumber() < 1)
                 continue;
 
-            traceStr.Append($"File: {frame.GetFileName()?.Split("\\").Last()}");
-            traceStr.Append($", LineNumber: {frame?.GetFileLineNumber()}");
+            traceStr.Append($"FileName: {frame.GetFileName()!.Split("\\").Last()}");
+            traceStr.Append($", LineNumber: {frame.GetFileLineNumber()}");
             traceStr.Append(' ');
         }
 
         return Convert.ToString(traceStr);
     }
     
-    // StatusCode 400
+    // StatusCode 400 - Fluent Validation
     private static void HandleValidationException(ExceptionContext context)
     {
         var exception = (ValidationException)context.Exception;
 
-        var details = new ValidationProblemDetails(exception.Errors)
+        var details = new ExceptionDetails
         {
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Title = "One or more validation failures have occurred.",
+            StatusCode = 400,
+            Message = exception.Errors
         };
 
         context.Result = new BadRequestObjectResult(details);
@@ -111,11 +123,12 @@ namespace Movies.WebAPI.Filters;
     {
         var exception = (BadRequestException)context.Exception;
 
-        var details = new ProblemDetails
+        var details = new ExceptionDetails
         {
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
             Title = "One or more validation failures have occurred.",
-            Detail = exception.Message
+            StatusCode = 400,
+            Message = exception.Message
         };
 
         context.Result = new BadRequestObjectResult(details);
@@ -127,11 +140,12 @@ namespace Movies.WebAPI.Filters;
     {
         var exception = (NotFoundException)context.Exception;
 
-        var details = new ProblemDetails
+        var details = new ExceptionDetails
         {
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
             Title = "The specified resource was not found.",
-            Detail = exception.Message
+            StatusCode = 404,
+            Message = exception.Message
         };
 
         context.Result = new NotFoundObjectResult(details);

@@ -14,7 +14,7 @@ namespace Movies.WebAPI.Controllers;
 public class PersonsController : ApiControllerBase
 {
     [HttpGet]
-    [Authorize(Roles = "Administrator, User")]
+    //[Authorize(Roles = "Administrator, User")]
     public async Task<ActionResult<PaginatedResponse<PersonsDto>>> GetAll([FromQuery] GetPersonsQuery query)
     {
         return await Mediator.Send(query);
@@ -22,7 +22,7 @@ public class PersonsController : ApiControllerBase
 
     
     [HttpGet("{id}")]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult<PersonDetailsDto>> GetDetails(int id)
     {
         return await Mediator.Send(new GetPersonDetailsQuery(id));
@@ -30,7 +30,7 @@ public class PersonsController : ApiControllerBase
 
     
     [HttpPost]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult<int>> Create([FromBody] CreatePersonCommand command)
     {
         return await Mediator.Send(command);
@@ -38,7 +38,7 @@ public class PersonsController : ApiControllerBase
 
     
     [HttpPut("{id}")]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Update(int id, [FromBody] UpdatePersonCommand command)
     {
         await Mediator.Send(command);
@@ -48,7 +48,7 @@ public class PersonsController : ApiControllerBase
 
     
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Delete(int id)
     {
         await Mediator.Send(new DeletePersonCommand(id));
