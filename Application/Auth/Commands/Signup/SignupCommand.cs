@@ -1,4 +1,4 @@
-﻿namespace Movies.Application.Auth.Commands.SignUp;
+﻿namespace Movies.Application.Auth.Commands.Signup;
 
 public record SignupCommand(string Email, string Password, string ConfirmPassword) : IRequest<Result>;
 

@@ -1,4 +1,4 @@
-﻿namespace Movies.Application.Auth.Commands.LogIn;
+﻿namespace Movies.Application.Auth.Commands.Login;
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {

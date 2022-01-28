@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Auth.Commands.LogIn;
-using Movies.Application.Auth.Commands.SignUp;
+using Movies.Application.Auth.Commands.Login;
+using Movies.Application.Auth.Commands.Signup;
 using Movies.Common.Wrappers;
 
 namespace Movies.WebAPI.Controllers;

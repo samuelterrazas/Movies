@@ -1,4 +1,4 @@
-﻿namespace Movies.Application.Auth.Commands.LogIn;
+﻿namespace Movies.Application.Auth.Commands.Login;
 
 public record LoginCommand(string Email, string Password) : IRequest<Result>;
 
