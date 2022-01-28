@@ -46,7 +46,8 @@ namespace Movies.WebAPI.Filters;
 
         HandleUnknownException(context);
     }
-
+    
+    // StatusCode 400 - InvalidModelState
     private static void HandleInvalidModelStateException(ExceptionContext context)
     {
         var details = new ExceptionDetails
@@ -61,7 +62,7 @@ namespace Movies.WebAPI.Filters;
         context.ExceptionHandled = true;
     }
     
-    // StatusCode 500
+    // StatusCode 500 - InternalServerError
     private static void HandleUnknownException(ExceptionContext context)
     {
         var details = new ExceptionDetails
@@ -93,15 +94,15 @@ namespace Movies.WebAPI.Filters;
             if(frame.GetFileLineNumber() < 1)
                 continue;
 
-            traceStr.Append($"FileName: {frame.GetFileName()!.Split("\\").Last()}");
-            traceStr.Append($", LineNumber: {frame.GetFileLineNumber()}");
+            traceStr.AppendLine($"FileName: {frame.GetFileName()!.Split("\\").Last()}");
+            traceStr.AppendLine($", LineNumber: {frame.GetFileLineNumber()}");
             traceStr.Append(' ');
         }
 
         return Convert.ToString(traceStr);
     }
     
-    // StatusCode 400 - Fluent Validation
+    // StatusCode 400 - FluentValidation
     private static void HandleValidationException(ExceptionContext context)
     {
         var exception = (ValidationException)context.Exception;
@@ -118,7 +119,7 @@ namespace Movies.WebAPI.Filters;
         context.ExceptionHandled = true;
     }
     
-    // StatusCode 400
+    // StatusCode 400 - BadRequest
     private static void HandleBadRequestException(ExceptionContext context)
     {
         var exception = (BadRequestException)context.Exception;
@@ -135,7 +136,7 @@ namespace Movies.WebAPI.Filters;
         context.ExceptionHandled = true;
     }
 
-    // StatusCode 404
+    // StatusCode 404 - NotFound
     private static void HandleNotFoundException(ExceptionContext context)
     {
         var exception = (NotFoundException)context.Exception;

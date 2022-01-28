@@ -5,8 +5,8 @@ namespace Movies.Common.DTOs;
 
 public record MoviesDto(int Id, string Title, List<FilesDto> Images)
 {
-    public static explicit operator MoviesDto(Movie movie) 
-        => new(
+    public static explicit operator MoviesDto(Movie movie) => 
+        new(
             movie.Id, 
             movie.Title,
             movie.Files

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Common.Wrappers;
 
 namespace Movies.WebAPI.Middlewares;
 
@@ -32,11 +33,12 @@ public class ExceptionMiddleware
     {
         context.Response.ContentType = "application/problem+json";
 
-        var problem = new ProblemDetails
+        var problem = new ExceptionDetails
         {
+            Reference = "https://tools.ietf.org/html/rfc7235#section-3.1",
             Title = "Unauthorized.",
-            Status = StatusCodes.Status401Unauthorized,
-            Detail = "https://tools.ietf.org/html/rfc7235#section-3.1"
+            StatusCode = StatusCodes.Status401Unauthorized,
+            Message = "You must be logged in to access the content."
         };
                     
         await JsonSerializer.SerializeAsync(context.Response.Body, problem);
@@ -46,11 +48,12 @@ public class ExceptionMiddleware
     {
         context.Response.ContentType = "application/problem+json";
 
-        var problem = new ProblemDetails
+        var problem = new ExceptionDetails
         {
+            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.3",
             Title = "Forbidden.",
-            Status = StatusCodes.Status403Forbidden,
-            Detail = "https://tools.ietf.org/html/rfc7231#section-6.5.3"
+            StatusCode = StatusCodes.Status403Forbidden,
+            Message = "You are not allowed to access the content."
         };
 
         await JsonSerializer.SerializeAsync(context.Response.Body, problem);
