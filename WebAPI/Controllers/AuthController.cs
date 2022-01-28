@@ -13,8 +13,8 @@ public class AuthController : ApiControllerBase
     {
         return await Mediator.Send(command);
     }
-        
-    
+
+
     [HttpPost("login")]
     public async Task<ActionResult<Result>> Login([FromBody] LoginCommand command)
     {

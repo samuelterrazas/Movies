@@ -12,23 +12,23 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
         _identityService = identityService;
         _tokenHandlerService = tokenHandlerService;
     }
-
+    
     public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var userExist = await _identityService.GetEmailAsync(request.Email);
-
+        
         if (userExist is null)
             throw new BadRequestException("Incorrect email or password.");
 
         var isCorrect = await _identityService.CheckPasswordAsync(userExist, request.Password);
-
+        
         if (!isCorrect)
             throw new BadRequestException("Incorrect email or password.");
 
         var parameters = await _identityService.GenerateTokenParametersAsync(userExist);
 
         var jwtToken = _tokenHandlerService.GenerateJwtToken(parameters);
-
+        
         return Result.LoggedIn(jwtToken);
     }
 }

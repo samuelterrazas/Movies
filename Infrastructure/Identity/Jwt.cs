@@ -1,3 +1,7 @@
 ﻿namespace Movies.Infrastructure.Identity;
 
-public record Jwt(string Secret, int AccessTokenExpiration);
+public class Jwt
+{
+    public string Secret { get; init; }
+    public int AccessTokenExpiration { get; init; }
+}
