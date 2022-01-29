@@ -2,7 +2,7 @@
 
 namespace Movies.Domain.Entities;
 
-public class File : AuditableEntity
+public class Image : AuditableEntity
 {
     public int Id { get; set; }
     public int MovieId { get; set; }

@@ -1,22 +1,21 @@
 ﻿using Microsoft.AspNetCore.Http;
-using File = Movies.Domain.Entities.File;
 
-namespace Movies.Application.Files.Commands.UploadFile;
+namespace Movies.Application.Images.Commands.UploadImage;
 
-public record UploadFileCommand(int MovieId, IFormFile Image) : IRequest<object>;
+public record UploadImageCommand(int MovieId, IFormFile Image) : IRequest<object>;
 
-public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, object>
+public class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, object>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IFileStore _fileStore;
 
-    public UploadFileCommandHandler(IApplicationDbContext dbContext, IFileStore fileStore)
+    public UploadImageCommandHandler(IApplicationDbContext dbContext, IFileStore fileStore)
     {
         _dbContext = dbContext;
         _fileStore = fileStore;
     }
     
-    public async Task<object> Handle(UploadFileCommand request, CancellationToken cancellationToken)
+    public async Task<object> Handle(UploadImageCommand request, CancellationToken cancellationToken)
     {
         var movie = await _dbContext.Movies.FirstOrDefaultAsync(movie => movie.Id == request.MovieId, cancellationToken);
 
@@ -29,14 +28,14 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, objec
         var content = memoryStream.ToArray();
         var extension = Path.GetExtension(request.Image.FileName);
         
-        var image = await _fileStore.SaveFile(content, extension, Enum.GetName(Container.Movies)?.ToLower(), 
+        var url = await _fileStore.SaveFile(content, extension, Enum.GetName(Container.Movies)?.ToLower(), 
             request.Image.ContentType);
 
-        var file = new File {MovieId = request.MovieId, Url = image};
+        var image = new Image {MovieId = request.MovieId, Url = url};
 
-        _dbContext.Files.Add(file);
+        _dbContext.Images.Add(image);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return new {MovieId = movie.Id, Image = file.Url};
+        return new {MovieId = movie.Id, Image = image.Url};
     }
 }

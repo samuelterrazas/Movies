@@ -17,7 +17,7 @@ public class GetPersonDetailsQueryHandler : IRequestHandler<GetPersonDetailsQuer
             .AsNoTracking()
             .Include(p => p.MoviePersons)
                 .ThenInclude(moviePerson => moviePerson.Movie)
-                    .ThenInclude(movie => movie.Files)
+                    .ThenInclude(movie => movie.Images)
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
         if (person is null)

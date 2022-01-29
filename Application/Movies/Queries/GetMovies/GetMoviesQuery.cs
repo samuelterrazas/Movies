@@ -44,7 +44,7 @@ public class GetMoviesQueryHandler : IRequestHandler<GetMoviesQuery, PaginatedRe
 
         return await movies
             .AsNoTracking()
-            .Include(movie => movie.Files)
+            .Include(movie => movie.Images)
             .OrderByDescending(movie => movie.Release)
             .Select(movie => (MoviesDto)movie)
             .PaginatedResponseAsync(request.PageNumber, request.PageSize);

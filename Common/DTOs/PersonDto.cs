@@ -22,7 +22,7 @@ public record PersonDetailsDto(int Id, string FullName, List<MoviesDto> Movies)
                     new MoviesDto(
                         moviePerson.MovieId, 
                         moviePerson.Movie.Title,
-                        moviePerson.Movie.Files
+                        moviePerson.Movie.Images
                             .Select(file => new FilesDto(file.Id, file.Url))
                             .ToList()
                     )

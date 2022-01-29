@@ -15,7 +15,7 @@ public class GetMovieDetailsQueryHandler : IRequestHandler<GetMovieDetailsQuery,
     {
         var movie = await _dbContext.Movies
             .AsNoTracking()
-            .Include(movie => movie.Files)
+            .Include(movie => movie.Images)
             .Include(movie => movie.MovieGenres).ThenInclude(movieGenre => movieGenre.Genre)
             .Include(movie => movie.MoviePersons).ThenInclude(moviePerson => moviePerson.Person)
             .FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);

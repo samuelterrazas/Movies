@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using File = Movies.Domain.Entities.File;
+using Movies.Domain.Entities;
 
 namespace Movies.Infrastructure.Persistence.Configurations;
 
-public class FileConfiguration : IEntityTypeConfiguration<File>
+public class ImageConfiguration : IEntityTypeConfiguration<Image>
 {
-    public void Configure(EntityTypeBuilder<File> builder)
+    public void Configure(EntityTypeBuilder<Image> builder)
     {
         builder.Property(f => f.MovieId)
             .IsRequired();

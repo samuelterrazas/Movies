@@ -3,5 +3,5 @@
 public enum Role
 {
     Director = 1,
-    Cast = 2
+    Cast
 }

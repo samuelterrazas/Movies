@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Files.Commands.DeleteFile;
-using Movies.Application.Files.Commands.UpdateFile;
-using Movies.Application.Files.Commands.UploadFile;
+using Movies.Application.Images.Commands.DeleteImage;
+using Movies.Application.Images.Commands.UpdateImage;
+using Movies.Application.Images.Commands.UploadImage;
 
 namespace Movies.WebAPI.Controllers;
 
 [Route("api/files")]
-public class FilesController : ApiControllerBase
+public class ImagesController : ApiControllerBase
 {
     [HttpPost]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult<object>> Upload([FromForm] UploadFileCommand command)
+    public async Task<ActionResult<object>> Upload([FromForm] UploadImageCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -19,7 +19,7 @@ public class FilesController : ApiControllerBase
     
     [HttpPut("{id}")]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult> Update(int id, [FromForm] UpdateFileCommand command)
+    public async Task<ActionResult> Update(int id, [FromForm] UpdateImageCommand command)
     {
         command = command with {Id = id};
         await Mediator.Send(command);
@@ -32,7 +32,7 @@ public class FilesController : ApiControllerBase
     [Authorize(Roles = "Administrator")]
     public async Task<ActionResult> Delete(int id)
     {
-        await Mediator.Send(new DeleteFileCommand(id));
+        await Mediator.Send(new DeleteImageCommand(id));
 
         return NoContent();
     }

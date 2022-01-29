@@ -9,7 +9,7 @@ public record MoviesDto(int Id, string Title, List<FilesDto> Images)
         new(
             movie.Id, 
             movie.Title,
-            movie.Files
+            movie.Images
                 .Select(file => new FilesDto(file.Id, file.Url))
                 .ToList()
         );
@@ -36,7 +36,7 @@ public record MovieDetailsDto(
             movie.Duration,
             movie.MaturityRating,
             movie.Summary,
-            movie.Files
+            movie.Images
                 .Select(file => new FilesDto(file.Id, file.Url))
                 .ToList(),
             movie.MovieGenres

@@ -1,12 +1,12 @@
-﻿using File = Movies.Domain.Entities.File;
+﻿using Movies.Domain.Entities;
 
 namespace Movies.Common.DTOs;
 
 public record FilesDto(int Id, string Url)
 {
-    public static explicit operator FilesDto(File file) => 
+    public static explicit operator FilesDto(Image image) => 
         new(
-            file.Id, 
-            file.Url
+            image.Id, 
+            image.Url
         );
 };

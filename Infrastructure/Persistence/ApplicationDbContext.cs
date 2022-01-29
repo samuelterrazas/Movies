@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Movies.Common.Interfaces;
 using Movies.Domain.Common;
 using Movies.Infrastructure.Identity;
-using File = Movies.Domain.Entities.File;
 
 namespace Movies.Infrastructure.Persistence;
 
@@ -17,7 +16,7 @@ namespace Movies.Infrastructure.Persistence;
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Person> Persons { get; set; }
-        public DbSet<File> Files { get; set; }
+        public DbSet<Image> Images { get; set; }
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<MoviePerson> MoviePersons { get; set; }
         
