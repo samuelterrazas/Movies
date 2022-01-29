@@ -3,64 +3,39 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
 
 
 ## Tecnologías
-* ASP.NET Core Web API 5
-* Entity Framework Core 5
+* ASP.NET Core Web API 6
+* Entity Framework Core 6
 * MediatR
-* AutoMapper
 * FluentValidation
-* JWT, Identity Entity Framework Core 5
+* JWT, Identity Entity Framework Core 6
 * NSwag
 * SQL Server
 * Azure
 
 
 ## DER
-<img src="https://user-images.githubusercontent.com/66186644/144080567-c99398c5-5fd2-48a2-a242-1e97bddf1b30.png"/>
+<img src="https://user-images.githubusercontent.com/66186644/151639748-efb3e67f-bf75-470a-8553-570259e8a887.png"/>
 
 
 ## Instrucciones
-
 ### Configuración del ConnectionStrings para Azure y SQL Server
-* **Azure**: Crear una cuenta de almacenamiento, dirigirse a _Claves de acceso_, copiar la _cadena de conexión_ de la key1 y pegarla en el .json.
-* **SQL Server**: La conexión por defecto es la que se muestra en el .json. La bases de datos utilizada es [SQL Server Express LocalDB](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15).
+* **SQLServerConnectionr**: Cadena de conexión a su base de datos SQL.
+* **AzureStorage**: Crear una cuenta de almacenamiento, dirigirse a _Claves de acceso_, copiar la _cadena de conexión_ de la key1 y pegarla en el .json.
 ```json
 "ConnectionStrings": {
-  "SQLServerConnection": "Server=(localdb)\\MSSQLLocalDB;Database=Movies;Trusted_Connection=True;",
+  "SQLServerConnection": "",
   "AzureStorage": ""
 }
 ```
 
+
 ### Migración y ejecución
 * Ejecutar en la terminal:
-  * `dotnet ef migrations add "Initial" --project Infrastructure -o Persistence/Migrations --startup-project WebAPI`
-  * `dotnet ef database update --project Infrastructure --startup-project WebAPI`
+  * `dotnet ef migrations add "Initial" --startup-project WebAPI --project Infrastructure -o Persistence/Migrations`
+  * `dotnet ef database update --startup-project WebAPI --project Infrastructure`
 * Iniciar el proyecto desde **WebAPI**.
 
 
 ## Observaciones
-
-* Para crear o actualizar una película, se debe hacer por medio de Postman, Insomnia u otro cliente HTTP. Ya que Swagger no soporta las listas compuestas por parámetro a través de [FromForm].
-* Para el campo de _**genres**_ se debe pasar una lista de enteros que representa los id's de los géneros existentes.
-```json
-[3, 4, 5, 6]
-```
-* Para el campo _**persons**_ se debe pasar una lista de objetos compuesta:
-    * _personId_: id de una persona existente.
-    * _role_: director (1), cast (2).
-    * _order_: para ordenar el cast.
-```json
-[
-  {"personId": 8, "role": 1, "order": 1}, 
-  {"personId": 7, "role": 2, "order": 1}, 
-  {"personId": 6, "role": 2, "order": 2},
-  {"personId": 5, "role": 2, "order": 3},
-  {"personId": 4, "role": 2, "order": 4},
-  {"personId": 3, "role": 2, "order": 5},
-  {"personId": 2, "role": 2, "order": 6},
-  {"personId": 1, "role": 2, "order": 7},
-  {"personId": 18, "role": 2, "order": 8},
-  {"personId": 19, "role": 2, "order": 9}
-]
-```
+* Falta agregar documentación.
 * Faltan las pruebas unitarias y de integración.
-* Hay varias cosas por mejorar y optimizar pero la API es totalmente funcional.
