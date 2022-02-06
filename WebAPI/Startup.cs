@@ -11,12 +11,12 @@ namespace Movies.WebAPI;
 
 public class Startup
 {
-    public Startup(IConfiguration configuration)
+    public Startup(IConfigurationRoot configuration)
     {
         Configuration = configuration;
     }
 
-    private IConfiguration Configuration { get; }
+    private IConfigurationRoot Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {

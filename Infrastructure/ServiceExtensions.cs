@@ -19,7 +19,8 @@ public static class ServiceExtensions
     {
         services.AddDbContext<ApplicationDbContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("SQLServerConnection"),
-                migration => migration.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                migration => migration.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
+        );
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
         

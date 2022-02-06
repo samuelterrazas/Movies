@@ -1,43 +1,13 @@
-﻿using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Application;
-using Movies.Infrastructure;
+﻿using Microsoft.AspNetCore.Identity;
 using Movies.Infrastructure.Identity;
 using Movies.Infrastructure.Persistence;
-using Movies.WebAPI.Filters;
-using Movies.WebAPI.Middlewares;
-using NSwag;
-using NSwag.Generation.Processors.Security;
+using Movies.WebAPI;
 
 // Services
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseDefaultServiceProvider(options => options.ValidateScopes = false);
-
-builder.Services.AddApplicationLayer();
-builder.Services.AddInfrastructureLayer(builder.Configuration);
-
-builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddControllers(options => 
-        options.Filters.Add<ApiExceptionFilterAttribute>())
-    .AddFluentValidation(f => f.AutomaticValidationEnabled = false);
-
-builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
-    
-builder.Services.AddOpenApiDocument(configure =>
-{
-    configure.Title = "Movies API";
-    configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-    {
-        Type = OpenApiSecuritySchemeType.ApiKey,
-        In = OpenApiSecurityApiKeyLocation.Header,
-        Name = "Authorization",
-        Description = "Type into the text box: Bearer {your JWT token}"
-    });
-    configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-});
+var startup = new Startup(builder.Configuration);
+startup.ConfigureServices(builder.Services);
 
 // App
 var app = builder.Build();
@@ -63,27 +33,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseOpenApi(settings => settings.Path = "api/docs/{documentName}/specification.json");
-    app.UseSwaggerUi3(settings =>
-    {
-        settings.DocumentPath = "api/docs/{documentName}/specification.json";
-        settings.Path = "/api/docs";
-    });
-}
-
-app.UseMiddleware<ExceptionMiddleware>();
-
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-
-app.UseAuthentication();
-
-app.UseAuthorization();
-
-app.MapControllers();
+startup.Configure(app, app.Environment);
 
 app.Run();

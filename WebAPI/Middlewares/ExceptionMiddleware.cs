@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
 using Movies.Common.Wrappers;
 
 namespace Movies.WebAPI.Middlewares;
