@@ -1,6 +1,6 @@
 ﻿namespace Movies.Application.Persons.Queries.GetPersons;
 
-public record GetPersonsQuery(int PageNumber, int PageSize, string Name) : IRequest<PaginatedResponse<PersonsDto>>;
+public record GetPersonsQuery(int? PageNumber, int? PageSize, string Name) : IRequest<PaginatedResponse<PersonsDto>>;
 
 public class GetPersonsQueryHandler : IRequestHandler<GetPersonsQuery, PaginatedResponse<PersonsDto>>
 {
@@ -17,12 +17,12 @@ public class GetPersonsQueryHandler : IRequestHandler<GetPersonsQuery, Paginated
         
         var persons = _dbContext.Persons.AsQueryable();
 
-        if (!string.IsNullOrEmpty(name))
+        if (!string.IsNullOrWhiteSpace(name))
             persons = persons.Where(p => p.FullName.Contains(name));
             
         return await persons
             .AsNoTracking()
             .Select(person => (PersonsDto)person)
-            .PaginatedResponseAsync(pageNumber, pageSize);
+            .PaginatedResponseAsync(pageNumber ?? 1, pageSize ?? 10);
     }
 }

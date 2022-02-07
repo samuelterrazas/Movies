@@ -1,11 +1,23 @@
 ﻿using Movies.Application.Genres.Commands.CreateGenre;
+using Movies.Application.Genres.Commands.UpdateGenre;
 
 namespace Movies.Application.IntegrationTests.Genres.Commands;
 
 using static Testing;
 
-public class CreateGenreTests : TestBase
+public class UpdateGenreTests : TestBase
 {
+    // NotFoundException: Id was not found.
+    [Test]
+    public async Task ShouldRequireValidGenreId()
+    {
+        // Act
+        var command = new UpdateGenreCommand(Id: 99, Name: "New genre");
+        
+        // Assert
+        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
+    }
+    
     // ValidationException: .NotEmpty()
     [Test]
     public async Task ShouldRequireMinimumFields()
@@ -30,18 +42,20 @@ public class CreateGenreTests : TestBase
     
     // Method
     [Test]
-    public async Task ShouldCreateGenre()
+    public async Task ShouldUpdateGenre()
     {
+        // Arrange
+        var genreId = await SendAsync(new CreateGenreCommand(Name: "New genre"));
+        
         // Act
-        var command = new CreateGenreCommand(Name: "New genre");
-
-        var genreId = await SendAsync(command);
+        var command = new UpdateGenreCommand(Id: genreId, Name: "Update genre name");
+        await SendAsync(command);
 
         var genre = await FindAsync<Genre>(genreId);
-        
+
         // Assert
         genre.Should().NotBeNull();
-        genre.Name.Should().Be("New genre");
-        genre.LastModified.Should().BeNull();
+        genre.Name.Should().Be(command.Name);
+        genre.LastModified.Should().NotBeNull();
     }
 }

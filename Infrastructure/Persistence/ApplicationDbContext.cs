@@ -27,10 +27,10 @@ namespace Movies.Infrastructure.Persistence;
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.Created = DateTime.Now;
+                        entry.Entity.Created = DateTime.UtcNow;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.LastModified = DateTime.Now;
+                        entry.Entity.LastModified = DateTime.UtcNow;
                         break;
                 }
             }

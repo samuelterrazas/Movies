@@ -1,14 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using Movies.Infrastructure.Identity;
 using Movies.Infrastructure.Persistence;
 using Movies.WebAPI;
-using NUnit.Framework;
 using Respawn;
 
 namespace Movies.Application.IntegrationTests;
@@ -44,7 +41,7 @@ public class Testing
         _scopeFactory = services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>();
 
         _checkpoint = new Checkpoint {TablesToIgnore = new[] {"__EFMigrationsHistory"}};
-        
+
         EnsureDatabase();
     }
 
@@ -66,7 +63,7 @@ public class Testing
         return await mediator.Send(request);
     }
 
-    public static async Task RunAsAdministratorAsync() =>
+    /*public static async Task RunAsAdministratorAsync() =>
         await RunAsUserAsync("administrator@localhost", "Abc123.", new[] {"Administrator"});
 
     private static async Task RunAsUserAsync(string email, string password, string[] roles)
@@ -92,7 +89,7 @@ public class Testing
         var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
 
         throw new Exception($"Unable to create {email}.{Environment.NewLine}{errors}");
-    }
+    }*/
 
     public static async Task ResetState() =>
         await _checkpoint.Reset(_configuration.GetConnectionString("SQLServerConnection"));
@@ -106,13 +103,13 @@ public class Testing
         return await dbContext.FindAsync<TEntity>(keyValues);
     }
 
-    public static async Task AddAsync<TEntity>(TEntity entity)
+    public static async Task AddRangeAsync(params object[] entities)
     {
         using var scope = _scopeFactory.CreateScope();
 
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        dbContext.Add(entity);
+        dbContext.AddRange(entities);
 
         await dbContext.SaveChangesAsync();
     }

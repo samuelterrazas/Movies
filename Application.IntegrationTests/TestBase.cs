@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace Movies.Application.IntegrationTests;
+﻿namespace Movies.Application.IntegrationTests;
 
 using static Testing;
 
