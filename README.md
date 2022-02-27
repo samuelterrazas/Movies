@@ -31,7 +31,7 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
 
 ### Migración y ejecución
 * Ejecutar en la terminal:
-  * `dotnet ef migrations add "Initial" --startup-project WebAPI --project Infrastructure -o Persistence/Migrations`
+  * `dotnet ef migrations add "Initial" --startup-project WebAPI --project Infrastructure --output-dir Persistence/Migrations`
   * `dotnet ef database update --startup-project WebAPI --project Infrastructure`
 * Iniciar el proyecto desde **WebAPI**.
 
