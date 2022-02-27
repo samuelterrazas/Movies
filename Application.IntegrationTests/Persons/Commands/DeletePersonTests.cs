@@ -8,20 +8,10 @@ using static Testing;
 public class DeletePersonTests : TestBase
 {
     [Test]
-    public async Task ShouldRequireValidPersonId()
-    {
-        // Act
-        var command = new DeletePersonCommand(Id: 99);
-        
-        // Assert
-        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
-    }
-
-    [Test]
     public async Task ShouldDeletePerson()
     {
         // Arrange
-        var personId = await SendAsync(new CreatePersonCommand(FullName: "New person"));
+        var personId = await SendAsync(new CreatePersonCommand(FullName: "New fullName"));
 
         // Act
         await SendAsync(new DeletePersonCommand(Id: personId));

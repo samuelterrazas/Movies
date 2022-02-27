@@ -6,15 +6,14 @@ using static Testing;
 
 public class GetGenresTests : TestBase
 {
-    // Method
     [Test]
     public async Task ShouldReturnAllGenres()
     {
         // Arrange
         await AddRangeAsync(
-            new Genre {Name = "New genre 1"}, 
-            new Genre {Name = "New genre 2"}, 
-            new Genre {Name = "New genre 3"}
+            new Genre {Name = "New name A"}, 
+            new Genre {Name = "New name B"}, 
+            new Genre {Name = "New name c"}
         );
         
         // Act

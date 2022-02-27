@@ -8,20 +8,10 @@ using static Testing;
 public class GetPersonDetailsTests : TestBase
 {
     [Test]
-    public async Task ShouldRequireValidPersonId()
-    {
-        // Act
-        var query = new GetPersonDetailsQuery(Id: 99);
-
-        // Assert
-        await FluentActions.Invoking(() => SendAsync(query)).Should().ThrowAsync<NotFoundException>();
-    }
-    
-    [Test]
     public async Task ShouldReturnPersonDetails()
     {
         // Arrange
-        var personId = await SendAsync(new CreatePersonCommand(FullName: "New person"));
+        var personId = await SendAsync(new CreatePersonCommand(FullName: "New fullName"));
         
         // Act
         var query = new GetPersonDetailsQuery(Id: personId);

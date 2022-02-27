@@ -7,30 +7,13 @@ using static Testing;
 public class GetPersonsTests : TestBase
 {
     [Test]
-    public async Task ShouldReturnValidationException()
-    {
-        // Arrange
-        await AddRangeAsync(
-            new Person {FullName = "New person 1"},
-            new Person {FullName = "New person 2"},
-            new Person {FullName = "New person 3"}
-        );
-        
-        // Act
-        var query = new GetPersonsQuery(0, 0, "");
-
-        // Assert
-        await FluentActions.Invoking(() => SendAsync(query)).Should().ThrowAsync<ValidationException>();
-    }
-    
-    [Test]
     public async Task ShouldReturnAllPersons()
     {
         // Arrange
         await AddRangeAsync(
-            new Person {FullName = "New person 1"},
-            new Person {FullName = "New person 2"},
-            new Person {FullName = "New person 3"}
+            new Person {FullName = "New fullName A"},
+            new Person {FullName = "New fullName B"},
+            new Person {FullName = "New fullName C"}
         );
 
         // Act

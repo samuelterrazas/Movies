@@ -1,18 +1,17 @@
 ﻿using Movies.Application.Genres.Commands.CreateGenre;
 using Movies.Application.Movies.Commands.CreateMovie;
-using Movies.Application.Movies.Commands.UpdateMovie;
 using Movies.Application.Movies.Queries.GetMovieDetails;
 using Movies.Application.Persons.Commands.CreatePerson;
 using Movies.Common.DTOs;
 
-namespace Movies.Application.IntegrationTests.Movies.Commands;
+namespace Movies.Application.IntegrationTests.Movies.Queries;
 
 using static Testing;
 
-public class UpdateMovieTests : TestBase
+public class GetMovieDetailsTests : TestBase
 {
     [Test]
-    public async Task ShouldUpdateMovie()
+    public async Task ShouldReturnMovieDetails()
     {
         // Arrange
         var genreIdA = await SendAsync(new CreateGenreCommand(Name: "New name A"));
@@ -22,7 +21,8 @@ public class UpdateMovieTests : TestBase
         var personIdB = await SendAsync(new CreatePersonCommand(FullName: "New fullName B"));
         var personIdC = await SendAsync(new CreatePersonCommand(FullName: "New fullName C"));
         
-        var createCommand = new CreateMovieCommand(
+        var command = new CreateMovieCommand
+        (
             Title: "New title",
             Release: 2022,
             Duration: "2h",
@@ -36,38 +36,15 @@ public class UpdateMovieTests : TestBase
                 new(PersonId: personIdC, Role: 2, Order: 2)
             }
         );
-
-        var movieId = await SendAsync(createCommand);
+        
+        var movieId = await SendAsync(command);
 
         // Act
-        var updateCommand = new UpdateMovieCommand(
-            Id: movieId,
-            Title: "Updated title",
-            Release: 2021,
-            Duration: "2h 40m",
-            MaturityRating: "16+",
-            Summary: "Updated summary",
-            Genres: new List<int> {genreIdA, genreIdB},
-            Persons: new List<MoviePersonDto>
-            {
-                new(PersonId: personIdA, Role: 1, Order: 1),
-                new(PersonId: personIdB, Role: 2, Order: 1),
-                new(PersonId: personIdC, Role: 2, Order: 2)
-            }
-        );
-
-        await SendAsync(updateCommand);
-
         var query = new GetMovieDetailsQuery(Id: movieId);
 
-        var movie = await SendAsync(query);
-        
+        var result = await SendAsync(query);
+
         // Assert
-        movie.Should().NotBeNull();
-        movie.Title.Should().Be("Updated title");
-        movie.Release.Should().Be(2021);
-        movie.Duration.Should().Be("2h 40m");
-        movie.MaturityRating.Should().Be("16+");
-        movie.Summary.Should().Be("Updated summary");
+        result.Id.Should().Be(movieId);
     }
 }

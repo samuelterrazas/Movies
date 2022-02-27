@@ -7,23 +7,11 @@ using static Testing;
 
 public class DeleteGenreTests : TestBase
 {
-    // NotFoundException: Id was not found.
-    [Test]
-    public async Task ShouldRequireValidGenreId()
-    {
-        // Act
-        var command = new DeleteGenreCommand(Id: 99);
-        
-        // Assert
-        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
-    }
-    
-    // Method
     [Test]
     public async Task ShouldDeleteGenre()
     {
         // Arrange
-        var genreId = await SendAsync(new CreateGenreCommand(Name: "New genre"));
+        var genreId = await SendAsync(new CreateGenreCommand(Name: "New name"));
         
         // Act
         await SendAsync(new DeleteGenreCommand(Id: genreId));

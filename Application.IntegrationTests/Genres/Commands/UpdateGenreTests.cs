@@ -7,48 +7,14 @@ using static Testing;
 
 public class UpdateGenreTests : TestBase
 {
-    // NotFoundException: Id was not found.
-    [Test]
-    public async Task ShouldRequireValidGenreId()
-    {
-        // Act
-        var command = new UpdateGenreCommand(Id: 99, Name: "New genre");
-        
-        // Assert
-        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
-    }
-    
-    // ValidationException: .NotEmpty()
-    [Test]
-    public async Task ShouldRequireMinimumFields()
-    {
-        // Act
-        var command = new CreateGenreCommand(Name: "");
-        
-        // Assert
-        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<ValidationException>();
-    }
-    
-    // ValidationException: .MaximumLength(50);
-    [Test]
-    public async Task ShouldRequireMaximumFields()
-    {
-        // Act
-        var command = new CreateGenreCommand(Name: "TEXT TEST TEXT TEST TEXT TEST TEXT TEST TEXT TEST TEXT TEST");
-        
-        // Assert
-        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<ValidationException>();
-    }
-    
-    // Method
     [Test]
     public async Task ShouldUpdateGenre()
     {
         // Arrange
-        var genreId = await SendAsync(new CreateGenreCommand(Name: "New genre"));
+        var genreId = await SendAsync(new CreateGenreCommand(Name: "New name"));
         
         // Act
-        var command = new UpdateGenreCommand(Id: genreId, Name: "Update genre name");
+        var command = new UpdateGenreCommand(Id: genreId, Name: "Updated name");
         await SendAsync(command);
 
         var genre = await FindAsync<Genre>(genreId);
