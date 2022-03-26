@@ -21,17 +21,24 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
 ### Configuración del ConnectionStrings para Azure y SQL Server
 * **SQLServerConnectionr**: Cadena de conexión a su base de datos SQL.
 * **AzureStorage**: Crear una cuenta de almacenamiento, dirigirse a _Claves de acceso_, copiar la _cadena de conexión_ de la key1 y pegarla en el .json.
+> WebAPI: appsettings.Development.json
 ```json
 "ConnectionStrings": {
   "SQLServerConnection": "",
   "AzureStorage": ""
 }
 ```
+> Application.IntegrationTests: appsettings.json
+```json
+"ConnectionStrings": {
+  "SQLServerConnection": ""
+}
+```
 
 
 ### Migración y ejecución
 * Ejecutar en la terminal:
-  * `dotnet ef migrations add "Initial" --startup-project WebAPI --project Infrastructure --output-dir Persistence/Migrations`
+  * `dotnet ef migrations add "First" --startup-project WebAPI --project Infrastructure --output-dir Persistence/Migrations`
   * `dotnet ef database update --startup-project WebAPI --project Infrastructure`
 * Iniciar el proyecto desde **WebAPI**.
 
