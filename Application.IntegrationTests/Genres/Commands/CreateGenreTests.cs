@@ -1,5 +1,4 @@
 ﻿using Movies.Application.Genres.Commands.CreateGenre;
-using Movies.Application.Genres.Queries.GetGenres;
 
 namespace Movies.Application.IntegrationTests.Genres.Commands;
 

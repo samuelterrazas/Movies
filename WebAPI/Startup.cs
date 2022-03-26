@@ -1,4 +1,7 @@
-﻿using FluentValidation.AspNetCore;
+﻿using System.Net.Mime;
+using System.Text.Json;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application;
 using Movies.Infrastructure;
@@ -11,12 +14,12 @@ namespace Movies.WebAPI;
 
 public class Startup
 {
-    public Startup(IConfigurationRoot configuration)
+    public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
     }
 
-    private IConfigurationRoot Configuration { get; }
+    private IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -43,6 +46,14 @@ public class Startup
             });
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
+
+        services.AddHealthChecks()
+            .AddSqlServer(
+                connectionString: Configuration.GetConnectionString("SQLServerConnection"),
+                name: "SQLServer",
+                tags: new[] {"HealthCheck"},
+                timeout: TimeSpan.FromSeconds(10)
+            );
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,7 +68,7 @@ public class Startup
                 settings.Path = "/api/docs";
             });
         }
-        
+
         app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseHttpsRedirection();
@@ -70,6 +81,27 @@ public class Startup
 
         app.UseAuthorization();
         
-        app.UseEndpoints(e => e.MapControllers());
+        app.UseEndpoints(e =>
+        {
+            e.MapControllers();
+
+            e.MapHealthChecks("/health", new HealthCheckOptions
+            {
+                Predicate = (check) => check.Tags.Contains("HealthCheck"),
+                ResponseWriter = async (context, report) =>
+                {
+                    var result = JsonSerializer.Serialize(report.Entries.Select(entry => new
+                    {
+                        Name = entry.Key,
+                        Status = Convert.ToString(entry.Value.Status),
+                        Exception = entry.Value.Exception is not null ? entry.Value.Exception.Message : "None",
+                        Duration = entry.Value.Duration
+                    }));
+
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result);
+                }
+            });
+        });
     }
 }
