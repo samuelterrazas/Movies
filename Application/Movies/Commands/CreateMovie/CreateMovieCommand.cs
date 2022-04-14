@@ -35,7 +35,7 @@ public class CreateMovieCommandHandler : IRequestHandler<CreateMovieCommand, int
                 .Select(moviePersonDto => new MoviePerson
                 {
                     PersonId = moviePersonDto.PersonId, 
-                    Role = (Role)moviePersonDto.Role,
+                    Role = moviePersonDto.Role,
                     Order = moviePersonDto.Order
                 })
                 .ToList()

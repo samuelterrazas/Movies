@@ -11,15 +11,12 @@ public class ImagesController : ApiControllerBase
 {
     [HttpPost]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult<object>> Upload([FromForm] UploadImageCommand command)
-    {
-        return await Mediator.Send(command);
-    }
+    public async Task<IActionResult> Upload([FromForm] UploadImageCommand command) => Ok(await Mediator.Send(command));
 
-    
-    [HttpPut("{id}")]
+
+    [HttpPut("{id:int}")]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult> Update(int id, [FromForm] UpdateImageCommand command)
+    public async Task<IActionResult> Update(int id, [FromForm] UpdateImageCommand command)
     {
         command = command with {Id = id};
         await Mediator.Send(command);
@@ -28,9 +25,9 @@ public class ImagesController : ApiControllerBase
     }
 
     
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         await Mediator.Send(new DeleteImageCommand(id));
 

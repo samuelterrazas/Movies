@@ -33,13 +33,13 @@ public class GetMoviesQueryHandler : IRequestHandler<GetMoviesQuery, PaginatedRe
         if (!string.IsNullOrEmpty(request.Director))
             movies = _dbContext.MoviePersons
                 .Where(moviePerson => moviePerson.Person.FullName.Contains(request.Director))
-                .Where(moviePerson => moviePerson.Role == Role.Director)
+                .Where(moviePerson => moviePerson.Role == (byte)Role.Director)
                 .Select(moviePerson => moviePerson.Movie);
 
         if (!string.IsNullOrEmpty(request.Actor))
             movies = _dbContext.MoviePersons
                 .Where(moviePerson => moviePerson.Person.FullName.Contains(request.Actor))
-                .Where(moviePerson => moviePerson.Role == Role.Cast)
+                .Where(moviePerson => moviePerson.Role == (byte)Role.Cast)
                 .Select(moviePerson => moviePerson.Movie);
 
         return await movies

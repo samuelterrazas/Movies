@@ -11,7 +11,7 @@ public record PersonsDto(int Id, string FullName)
         );
 }
 
-public record PersonDetailsDto(int Id, string FullName, List<MoviesDto> Movies)
+public record PersonDetailsDto(int Id, string FullName, ICollection<MoviesDto> Movies)
 {
     public static explicit operator PersonDetailsDto(Person person) => 
         new(

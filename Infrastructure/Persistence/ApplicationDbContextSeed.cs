@@ -81,63 +81,63 @@ public static class ApplicationDbContextSeed
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Quentin Tarantino"},
-                    Role = Role.Director,
+                    Role = (byte)Role.Director,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Brad Pitt"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Christoph Waltz"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 2
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Michael Fassbender"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 3
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Eli Roth"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 4
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Diane Kruger"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 5
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Daniel Brühl"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 6
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Til Schweiger"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 7
                 },
                 new MoviePerson
                 {
                     Movie = inglouriousBasterds,
                     Person = new Person {FullName = "Mélanie Laurent"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 8
                 }
             );
@@ -182,70 +182,70 @@ public static class ApplicationDbContextSeed
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Martin Scorsese"},
-                    Role = Role.Director,
+                    Role = (byte)Role.Director,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Leonardo DiCaprio"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 1
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Jonah Hill"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 2
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Margot Robbie"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 3
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Matthew McConaughey"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 4
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Kyle Chandler"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 5
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Rob Reiner"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 6
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Jon Bernthal"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 7
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Jon Favreau"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 8
                 },
                 new MoviePerson
                 {
                     Movie = theWolfOfWallStreet,
                     Person = new Person {FullName = "Jean Dujardin"},
-                    Role = Role.Cast,
+                    Role = (byte)Role.Cast,
                     Order = 9
                 }
             );

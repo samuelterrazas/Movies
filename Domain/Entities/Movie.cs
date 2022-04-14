@@ -10,7 +10,7 @@ public class Movie : AuditableEntity
     public string Duration { get; set; }
     public string MaturityRating { get; set; }
     public string Summary { get; set; }
-    public IEnumerable<Image> Images { get; set; }
-    public IEnumerable<MovieGenre> MovieGenres { get; set; }
-    public IEnumerable<MoviePerson> MoviePersons { get; set; }
+    public ICollection<Image> Images { get; set; }
+    public ICollection<MovieGenre> MovieGenres { get; set; }
+    public ICollection<MoviePerson> MoviePersons { get; set; }
 }

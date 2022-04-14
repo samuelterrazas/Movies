@@ -13,12 +13,12 @@ namespace Movies.Infrastructure.Persistence;
     {
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Genre> Genres { get; set; }
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<Person> Persons { get; set; }
-        public DbSet<Image> Images { get; set; }
-        public DbSet<MovieGenre> MovieGenres { get; set; }
-        public DbSet<MoviePerson> MoviePersons { get; set; }
+        public DbSet<Genre> Genres => Set<Genre>();
+        public DbSet<Movie> Movies => Set<Movie>();
+        public DbSet<Person> Persons => Set<Person>();
+        public DbSet<Image> Images => Set<Image>();
+        public DbSet<MovieGenre> MovieGenres => Set<MovieGenre>();
+        public DbSet<MoviePerson> MoviePersons => Set<MoviePerson>();
         
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {

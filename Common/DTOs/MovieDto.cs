@@ -3,7 +3,7 @@ using Movies.Domain.Enums;
 
 namespace Movies.Common.DTOs;
 
-public record MoviesDto(int Id, string Title, List<FilesDto> Images)
+public record MoviesDto(int Id, string Title, ICollection<FilesDto> Images)
 {
     public static explicit operator MoviesDto(Movie movie) => 
         new(
@@ -22,10 +22,10 @@ public record MovieDetailsDto(
     string Duration, 
     string MaturityRating, 
     string Summary,
-    List<FilesDto> Images,
-    List<GenresDto> Genres, 
-    List<PersonsDto> DirectedBy, 
-    List<PersonsDto> Cast
+    ICollection<FilesDto> Images,
+    ICollection<GenresDto> Genres, 
+    ICollection<PersonsDto> DirectedBy, 
+    ICollection<PersonsDto> Cast
 )
 {
     public static explicit operator MovieDetailsDto(Movie movie)
@@ -43,16 +43,16 @@ public record MovieDetailsDto(
                 .Select(movieGenre => new GenresDto(movieGenre.GenreId, movieGenre.Genre.Name))
                 .ToList(),
             movie.MoviePersons
-                .Where(moviePerson => moviePerson.Role == Role.Director)
+                .Where(moviePerson => moviePerson.Role == (byte)Role.Director)
                 .OrderBy(moviePerson => moviePerson.Order)
                 .Select(moviePerson => new PersonsDto(moviePerson.PersonId, moviePerson.Person.FullName))
                 .ToList(),
             movie.MoviePersons
-                .Where(moviePerson => moviePerson.Role == Role.Cast)
+                .Where(moviePerson => moviePerson.Role == (byte)Role.Cast)
                 .OrderBy(moviePerson => moviePerson.Order)
                 .Select(moviePerson => new PersonsDto(moviePerson.PersonId, moviePerson.Person.FullName))
                 .ToList()
         );
 }
 
-public record MoviePersonDto(int PersonId, int Role, int Order);
+public record MoviePersonDto(int PersonId, byte Role, int Order);

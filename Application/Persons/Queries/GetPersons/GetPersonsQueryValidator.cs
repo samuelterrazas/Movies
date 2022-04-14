@@ -8,7 +8,7 @@ public class GetPersonsQueryValidator : AbstractValidator<GetPersonsQuery>
             .GreaterThanOrEqualTo(1);
 
         RuleFor(p => p.PageSize)
-            .GreaterThanOrEqualTo(1);
+            .GreaterThanOrEqualTo(10);
 
         RuleFor(p => p.Name)
             .MinimumLength(3)

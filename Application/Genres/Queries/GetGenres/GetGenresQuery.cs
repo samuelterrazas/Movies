@@ -1,8 +1,8 @@
 ﻿namespace Movies.Application.Genres.Queries.GetGenres;
 
-public record GetGenresQuery() : IRequest<List<GenresDto>>;
+public record GetGenresQuery() : IRequest<IEnumerable<GenresDto>>;
 
-public class GetGenresQueryHandler : IRequestHandler<GetGenresQuery, List<GenresDto>>
+public class GetGenresQueryHandler : IRequestHandler<GetGenresQuery, IEnumerable<GenresDto>>
 {
     private readonly IApplicationDbContext _dbContext;
 
@@ -11,7 +11,7 @@ public class GetGenresQueryHandler : IRequestHandler<GetGenresQuery, List<Genres
         _dbContext = dbContext;
     }
         
-    public async Task<List<GenresDto>> Handle(GetGenresQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<GenresDto>> Handle(GetGenresQuery request, CancellationToken cancellationToken)
     {
         return await _dbContext.Genres
             .AsNoTracking()

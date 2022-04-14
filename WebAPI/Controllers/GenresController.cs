@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Common.DTOs;
 using Movies.Application.Genres.Commands.CreateGenre;
 using Movies.Application.Genres.Commands.DeleteGenre;
 using Movies.Application.Genres.Commands.UpdateGenre;
@@ -13,23 +12,17 @@ public class GenresController : ApiControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Administrator, User")]
-    public async Task<ActionResult<List<GenresDto>>> GetAll()
-    {
-        return await Mediator.Send(new GetGenresQuery());
-    }
+    public async Task<IActionResult> GetAll() => Ok(await Mediator.Send(new GetGenresQuery()));
 
-    
+
     [HttpPost]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult<int>> Create([FromBody] CreateGenreCommand command)
-    {
-        return await Mediator.Send(command);
-    }
+    public async Task<IActionResult> Create([FromBody] CreateGenreCommand command) => Ok(await Mediator.Send(command));
 
-    
-    [HttpPut("{id}")]
+
+    [HttpPut("{id:int}")]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult> Update(int id, [FromBody] UpdateGenreCommand command)
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateGenreCommand command)
     {
         command = command with {Id = id};
         await Mediator.Send(command);
@@ -38,9 +31,9 @@ public class GenresController : ApiControllerBase
     }
 
     
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     [Authorize(Roles = "Administrator")]
-    public async Task<ActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         await Mediator.Send(new DeleteGenreCommand(id));
 

@@ -8,6 +8,6 @@ public class MoviePerson
     public Movie Movie { get; set; }
     public int PersonId { get; set; }
     public Person Person { get; set; }
-    public Role Role { get; set; }
+    public byte Role { get; set; }
     public int Order { get; set; }
 }

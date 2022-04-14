@@ -27,14 +27,17 @@ public class UpdateImageCommandHandler : IRequestHandler<UpdateImageCommand>
         if (image is null)
             throw new NotFoundException(nameof(Image), request.Id);
 
-        await using var memoryStream = new MemoryStream();
-        await request.Image.CopyToAsync(memoryStream, cancellationToken);
-
-        var content = memoryStream.ToArray();
-        var extension = Path.GetExtension(request.Image.FileName);
+        string url;
         
-        var url = await _fileStore.EditFile(content, extension, Enum.GetName(Container.Movies)!.ToLower(), image.Url, 
-            request.Image.ContentType);
+        await using (var memoryStream = new MemoryStream())
+        {
+            await request.Image.CopyToAsync(memoryStream, cancellationToken);
+
+            var content = memoryStream.ToArray();
+            var extension = Path.GetExtension(request.Image.FileName);
+        
+            url = await _fileStore.EditFile(content, extension, Container.Movies.GetDescription(), image.Url, request.Image.ContentType);
+        }
 
         image.MovieId = request.MovieId;
         image.Url = url;

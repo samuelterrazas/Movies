@@ -1,6 +1,9 @@
-﻿namespace Movies.Domain.Enums;
+﻿using System.ComponentModel;
+
+namespace Movies.Domain.Enums;
 
 public enum Container
 {
+    [Description("movies")]
     Movies
 }

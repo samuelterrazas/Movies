@@ -21,7 +21,7 @@ public class DeleteImageCommandHandler : IRequestHandler<DeleteImageCommand>
             throw new NotFoundException(nameof(Image), request.Id);
 
         _dbContext.Images.Remove(image);
-        await _fileStore.DeleteFile(image.Url, Enum.GetName(Container.Movies)!.ToLower());
+        await _fileStore.DeleteFile(image.Url, Container.Movies.GetDescription());
         await _dbContext.SaveChangesAsync(cancellationToken);
         
         return Unit.Value;

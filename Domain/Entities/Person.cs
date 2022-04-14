@@ -6,5 +6,5 @@ public class Person : AuditableEntity
 {
     public int Id { get; set; }
     public string FullName { get; set; }
-    public IEnumerable<MoviePerson> MoviePersons { get; set; }
+    public ICollection<MoviePerson> MoviePersons { get; set; }
 }

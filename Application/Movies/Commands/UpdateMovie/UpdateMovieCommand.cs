@@ -42,7 +42,7 @@ public class UpdateMovieCommandHandler : IRequestHandler<UpdateMovieCommand>
             .Select(moviePersonDto => new MoviePerson
             {
                 PersonId = moviePersonDto.PersonId,
-                Role = (Role)moviePersonDto.Role,
+                Role = moviePersonDto.Role,
                 Order = moviePersonDto.Order
             })
             .ToList();

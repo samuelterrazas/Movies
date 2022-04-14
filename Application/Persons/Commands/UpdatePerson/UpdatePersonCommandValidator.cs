@@ -4,9 +4,6 @@ public class UpdatePersonCommandValidator : AbstractValidator<UpdatePersonComman
 {
     public UpdatePersonCommandValidator()
     {
-        RuleFor(p => p.Id)
-            .NotEmpty();
-
         RuleFor(p => p.FullName)
             .NotEmpty()
             .MaximumLength(100);

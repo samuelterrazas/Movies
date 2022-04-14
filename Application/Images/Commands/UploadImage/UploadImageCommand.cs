@@ -22,14 +22,17 @@ public class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, obj
         if (movie is null)
             throw new NotFoundException(nameof(Movie), request.MovieId);
 
-        await using var memoryStream = new MemoryStream();
-        await request.Image.CopyToAsync(memoryStream, cancellationToken);
-
-        var content = memoryStream.ToArray();
-        var extension = Path.GetExtension(request.Image.FileName);
+        string url;
         
-        var url = await _fileStore.SaveFile(content, extension, Enum.GetName(Container.Movies)?.ToLower(), 
-            request.Image.ContentType);
+        await using (var memoryStream = new MemoryStream())
+        {
+            await request.Image.CopyToAsync(memoryStream, cancellationToken);
+
+            var content = memoryStream.ToArray();
+            var extension = Path.GetExtension(request.Image.FileName);
+        
+            url = await _fileStore.SaveFile(content, extension, Container.Movies.GetDescription(), request.Image.ContentType);
+        }
 
         var image = new Image {MovieId = request.MovieId, Url = url};
 
