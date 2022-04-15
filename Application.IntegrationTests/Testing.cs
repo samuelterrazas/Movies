@@ -63,36 +63,7 @@ public class Testing
         return await mediator.Send(request);
     }
 
-    /*public static async Task RunAsAdministratorAsync() =>
-        await RunAsUserAsync("administrator@localhost", "Abc123.", new[] {"Administrator"});
-
-    private static async Task RunAsUserAsync(string email, string password, string[] roles)
-    {
-        using var scope = _scopeFactory.CreateScope();
-
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-        var user = new ApplicationUser {UserName = email, Email = email};
-
-        var result = await userManager.CreateAsync(user, password);
-
-        if (roles.Any())
-        {
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-            foreach (var role in roles)
-                await roleManager.CreateAsync(new IdentityRole(role));
-
-            await userManager.AddToRolesAsync(user, roles);
-        }
-
-        var errors = string.Join(Environment.NewLine, result.ToApplicationResult().Errors);
-
-        throw new Exception($"Unable to create {email}.{Environment.NewLine}{errors}");
-    }*/
-
-    public static async Task ResetState() =>
-        await _checkpoint.Reset(_configuration.GetConnectionString("SQLServerConnection"));
+    public static async Task ResetState() => await _checkpoint.Reset(_configuration.GetConnectionString("SQLServerConnection"));
 
     public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues) where TEntity : class
     {
