@@ -7,10 +7,11 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
 * Entity Framework Core 6
 * MediatR
 * FluentValidation
-* JWT, Identity Entity Framework Core 6
-* NSwag
+* JWT & Identity Entity Framework Core 6
 * SQL Server
 * Azure
+* NSwag
+* NUnit, FluentAssertions, Moq & Respawn
 
 
 ## DER
