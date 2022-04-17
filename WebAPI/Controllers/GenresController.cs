@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Genres.Commands.CreateGenre;
-using Movies.Application.Genres.Commands.DeleteGenre;
-using Movies.Application.Genres.Commands.UpdateGenre;
-using Movies.Application.Genres.Queries.GetGenres;
-
-namespace Movies.WebAPI.Controllers;
+﻿namespace Movies.WebAPI.Controllers;
 
 [Route("api/genres")]
 public class GenresController : ApiControllerBase

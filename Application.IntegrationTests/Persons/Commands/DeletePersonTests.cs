@@ -1,7 +1,4 @@
-﻿using Movies.Application.Persons.Commands.CreatePerson;
-using Movies.Application.Persons.Commands.DeletePerson;
-
-namespace Movies.Application.IntegrationTests.Persons.Commands;
+﻿namespace Movies.Application.IntegrationTests.Persons.Commands;
 
 using static Testing;
 

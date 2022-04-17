@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Movies.Application.Images.Commands.UpdateImage;
+﻿namespace Movies.Application.Images.Commands.UpdateImage;
 
 public record UpdateImageCommand(int Id, int MovieId, IFormFile Image) : IRequest;
 

@@ -1,6 +1,4 @@
-﻿using Movies.Domain.Entities;
-
-namespace Movies.Common.DTOs;
+﻿namespace Movies.Common.DTOs;
 
 public record FilesDto(int Id, string Url)
 {

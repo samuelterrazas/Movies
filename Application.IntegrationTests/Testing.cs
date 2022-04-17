@@ -1,13 +1,3 @@
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Movies.Infrastructure.Persistence;
-using Movies.WebAPI;
-using Respawn;
-
 namespace Movies.Application.IntegrationTests;
 
 [SetUpFixture]

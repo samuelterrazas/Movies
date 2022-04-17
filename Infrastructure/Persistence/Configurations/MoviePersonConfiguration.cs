@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Movies.Domain.Entities;
-
-namespace Movies.Infrastructure.Persistence.Configurations;
+﻿namespace Movies.Infrastructure.Persistence.Configurations;
 
 public class MoviePersonConfiguration : IEntityTypeConfiguration<MoviePerson>
 {

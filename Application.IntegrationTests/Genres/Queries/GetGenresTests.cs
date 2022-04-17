@@ -1,6 +1,4 @@
-﻿using Movies.Application.Genres.Queries.GetGenres;
-
-namespace Movies.Application.IntegrationTests.Genres.Queries;
+﻿namespace Movies.Application.IntegrationTests.Genres.Queries;
 
 using static Testing;
 

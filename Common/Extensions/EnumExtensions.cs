@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection;
-
-namespace Movies.Common.Extensions;
+﻿namespace Movies.Common.Extensions;
 
 public static class EnumExtensions
 {

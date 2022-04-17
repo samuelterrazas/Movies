@@ -1,6 +1,4 @@
-﻿using ValidationException = Movies.Common.Exceptions.ValidationException;
-
-namespace Movies.Common.UnitTests.Exceptions;
+﻿namespace Movies.Common.UnitTests.Exceptions;
 
 public class ValidationExceptionTests
 {

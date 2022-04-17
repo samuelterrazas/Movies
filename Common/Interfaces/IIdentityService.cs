@@ -1,6 +1,4 @@
-﻿using Movies.Common.Wrappers;
-
-namespace Movies.Common.Interfaces;
+﻿namespace Movies.Common.Interfaces;
 
 public interface IIdentityService
 {

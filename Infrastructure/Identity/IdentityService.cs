@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Movies.Common.Interfaces;
-using Movies.Common.Wrappers;
-
-namespace Movies.Infrastructure.Identity;
+﻿namespace Movies.Infrastructure.Identity;
 
 public class IdentityService : IIdentityService
 {

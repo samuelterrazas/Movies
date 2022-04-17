@@ -1,7 +1,4 @@
-﻿using System.Text.Json;
-using Movies.Common.Wrappers;
-
-namespace Movies.WebAPI.Middlewares;
+﻿namespace Movies.WebAPI.Middlewares;
 
 public class ExceptionMiddleware
 {

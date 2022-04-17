@@ -1,6 +1,4 @@
-﻿using Movies.Common.Interfaces;
-
-namespace Movies.Infrastructure.Identity;
+﻿namespace Movies.Infrastructure.Identity;
 
 public class TokenParameters : ITokenParameters
 {

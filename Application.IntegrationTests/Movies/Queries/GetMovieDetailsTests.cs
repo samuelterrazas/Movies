@@ -1,10 +1,4 @@
-﻿using Movies.Application.Genres.Commands.CreateGenre;
-using Movies.Application.Movies.Commands.CreateMovie;
-using Movies.Application.Movies.Queries.GetMovieDetails;
-using Movies.Application.Persons.Commands.CreatePerson;
-using Movies.Common.DTOs;
-
-namespace Movies.Application.IntegrationTests.Movies.Queries;
+﻿namespace Movies.Application.IntegrationTests.Movies.Queries;
 
 using static Testing;
 

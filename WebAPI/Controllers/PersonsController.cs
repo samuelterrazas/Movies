@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Persons.Commands.CreatePerson;
-using Movies.Application.Persons.Commands.DeletePerson;
-using Movies.Application.Persons.Commands.UpdatePerson;
-using Movies.Application.Persons.Queries.GetPersons;
-using Movies.Application.Persons.Queries.GetPersonDetails;
-
-namespace Movies.WebAPI.Controllers;
+﻿namespace Movies.WebAPI.Controllers;
 
 [Route("api/persons")]
 public class PersonsController : ApiControllerBase

@@ -1,17 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Movies.Infrastructure.Identity;
-using Movies.Infrastructure.Persistence;
-using System.Text;
-using Movies.Common.Interfaces;
-using Movies.Infrastructure.Azure;
-
-namespace Movies.Infrastructure;
+﻿namespace Movies.Infrastructure;
 
 public static class ServiceExtensions
 {

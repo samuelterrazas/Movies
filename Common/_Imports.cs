@@ -1,0 +1,10 @@
+﻿global using System.ComponentModel;
+global using System.Reflection;
+global using Microsoft.EntityFrameworkCore;
+global using FluentValidation;
+global using FluentValidation.Results;
+global using MediatR;
+global using ValidationException = Movies.Common.Exceptions.ValidationException;
+global using Movies.Common.Wrappers;
+global using Movies.Domain.Entities;
+global using Movies.Domain.Enums;

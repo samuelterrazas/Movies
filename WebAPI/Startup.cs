@@ -1,16 +1,4 @@
-﻿using System.Net.Mime;
-using System.Text.Json;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Application;
-using Movies.Infrastructure;
-using Movies.WebAPI.Filters;
-using Movies.WebAPI.Middlewares;
-using NSwag;
-using NSwag.Generation.Processors.Security;
-
-namespace Movies.WebAPI;
+﻿namespace Movies.WebAPI;
 
 public class Startup
 {

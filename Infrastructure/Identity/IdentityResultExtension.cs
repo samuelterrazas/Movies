@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Movies.Common.Wrappers;
-
-namespace Movies.Infrastructure.Identity;
+﻿namespace Movies.Infrastructure.Identity;
 
 public static class IdentityResultExtension
 {

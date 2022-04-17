@@ -1,6 +1,4 @@
-﻿using Movies.Domain.Enums;
-
-namespace Movies.Domain.Entities;
+﻿namespace Movies.Domain.Entities;
 
 public class MoviePerson
 {

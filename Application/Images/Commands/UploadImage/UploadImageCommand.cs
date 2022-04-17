@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Movies.Application.Images.Commands.UploadImage;
+﻿namespace Movies.Application.Images.Commands.UploadImage;
 
 public record UploadImageCommand(int MovieId, IFormFile Image) : IRequest<object>;
 

@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Auth.Commands.Login;
-using Movies.Application.Auth.Commands.Signup;
-
-namespace Movies.WebAPI.Controllers;
+﻿namespace Movies.WebAPI.Controllers;
 
 [Route("api/auth")]
 public class AuthController : ApiControllerBase

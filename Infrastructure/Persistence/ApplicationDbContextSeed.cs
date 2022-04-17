@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Movies.Domain.Entities;
-using Movies.Domain.Enums;
-using Movies.Infrastructure.Identity;
-
-namespace Movies.Infrastructure.Persistence;
+﻿namespace Movies.Infrastructure.Persistence;
 
 public static class ApplicationDbContextSeed
 {

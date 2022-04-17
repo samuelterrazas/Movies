@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Movies.Infrastructure.Identity;
-using Movies.Infrastructure.Persistence;
-using Movies.WebAPI;
-
-// Services
+﻿// Services
 var builder = WebApplication.CreateBuilder(args);
 
 var startup = new Startup(builder.Configuration);

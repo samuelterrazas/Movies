@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Images.Commands.DeleteImage;
-using Movies.Application.Images.Commands.UpdateImage;
-using Movies.Application.Images.Commands.UploadImage;
-
-namespace Movies.WebAPI.Controllers;
+﻿namespace Movies.WebAPI.Controllers;
 
 [Route("api/files")]
 public class ImagesController : ApiControllerBase

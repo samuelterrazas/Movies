@@ -1,6 +1,4 @@
-﻿using Movies.Common.Wrappers;
-
-namespace Movies.Common.Extensions
+﻿namespace Movies.Common.Extensions
 {
     public static class QueryableExtension
     {

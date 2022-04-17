@@ -1,6 +1,7 @@
-﻿global using MediatR;
+﻿global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Http;
+global using MediatR;
 global using FluentValidation;
-global using Microsoft.EntityFrameworkCore;
 global using Movies.Domain.Entities;
 global using Movies.Domain.Enums;
 global using Movies.Common.Interfaces;

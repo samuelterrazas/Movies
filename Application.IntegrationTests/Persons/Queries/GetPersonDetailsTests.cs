@@ -1,7 +1,4 @@
-﻿using Movies.Application.Persons.Commands.CreatePerson;
-using Movies.Application.Persons.Queries.GetPersonDetails;
-
-namespace Movies.Application.IntegrationTests.Persons.Queries;
+﻿namespace Movies.Application.IntegrationTests.Persons.Queries;
 
 using static Testing;
 

@@ -1,6 +1,4 @@
-﻿using Movies.Domain.Common;
-
-namespace Movies.Domain.Entities;
+﻿namespace Movies.Domain.Entities;
 
 public class Genre : AuditableEntity
 {

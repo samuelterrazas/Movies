@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Movies.Commands.CreateMovie;
-using Movies.Application.Movies.Commands.DeleteMovie;
-using Movies.Application.Movies.Commands.UpdateMovie;
-using Movies.Application.Movies.Queries.GetMovieDetails;
-using Movies.Application.Movies.Queries.GetMovies;
-
-namespace Movies.WebAPI.Controllers;
+﻿namespace Movies.WebAPI.Controllers;
 
 [Route("api/movies")]
 public class MoviesController : ApiControllerBase

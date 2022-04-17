@@ -1,7 +1,4 @@
-﻿using Movies.Domain.Entities;
-using Movies.Domain.Enums;
-
-namespace Movies.Common.DTOs;
+﻿namespace Movies.Common.DTOs;
 
 public record MoviesDto(int Id, string Title, ICollection<FilesDto> Images)
 {

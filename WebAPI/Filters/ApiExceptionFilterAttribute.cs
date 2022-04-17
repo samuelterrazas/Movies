@@ -1,11 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Movies.Common.Exceptions;
-using Movies.Common.Wrappers;
-
-namespace Movies.WebAPI.Filters;
+﻿namespace Movies.WebAPI.Filters;
 
  public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 {

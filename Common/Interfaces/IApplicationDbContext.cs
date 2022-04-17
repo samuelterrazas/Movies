@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Movies.Domain.Entities;
-
-namespace Movies.Common.Interfaces;
+﻿namespace Movies.Common.Interfaces;
 
 public interface IApplicationDbContext
 {

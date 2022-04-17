@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Movies.Domain.Enums;
+﻿namespace Movies.Domain.Enums;
 
 public enum Container
 {

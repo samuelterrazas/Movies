@@ -1,13 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Movies.Domain.Entities;
-using System.Reflection;
-using Microsoft.AspNetCore.Identity;
-using Movies.Common.Interfaces;
-using Movies.Domain.Common;
-using Movies.Infrastructure.Identity;
-
-namespace Movies.Infrastructure.Persistence;
+﻿namespace Movies.Infrastructure.Persistence;
 
  public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {

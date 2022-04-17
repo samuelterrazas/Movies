@@ -1,6 +1,4 @@
-﻿using Movies.Application.Movies.Queries.GetMovies;
-
-namespace Movies.Application.IntegrationTests.Movies.Queries;
+﻿namespace Movies.Application.IntegrationTests.Movies.Queries;
 
 using static Testing;
 

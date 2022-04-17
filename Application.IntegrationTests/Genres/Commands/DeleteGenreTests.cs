@@ -1,7 +1,4 @@
-﻿using Movies.Application.Genres.Commands.CreateGenre;
-using Movies.Application.Genres.Commands.DeleteGenre;
-
-namespace Movies.Application.IntegrationTests.Genres.Commands;
+﻿namespace Movies.Application.IntegrationTests.Genres.Commands;
 
 using static Testing;
 
