@@ -1,26 +1,31 @@
 ﻿namespace Movies.Application.Movies.Queries.GetMovies;
 
 public record GetMoviesQuery(
-    int? PageNumber,
-    int? PageSize,
-    string Title,
-    string Genre,
-    string Director,
-    string Actor
+    short? PageNumber,
+    short? PageSize,
+    string? Title,
+    string? Genre,
+    string? Director,
+    string? Actor
 ) : IRequest<PaginatedResponse<MoviesDto>>;
+
 
 public class GetMoviesQueryHandler : IRequestHandler<GetMoviesQuery, PaginatedResponse<MoviesDto>>
 {
     private readonly IApplicationDbContext _dbContext;
 
+    
     public GetMoviesQueryHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
     
+    
     public async Task<PaginatedResponse<MoviesDto>> Handle(GetMoviesQuery request, CancellationToken cancellationToken)
     {
-        var movies = _dbContext.Movies.AsQueryable();
+        var movies = _dbContext.Movies
+            .AsQueryable()
+            .AsNoTracking();
 
         if (!string.IsNullOrEmpty(request.Title))
             movies = movies.Where(m => m.Title.Contains(request.Title));
@@ -43,7 +48,6 @@ public class GetMoviesQueryHandler : IRequestHandler<GetMoviesQuery, PaginatedRe
                 .Select(moviePerson => moviePerson.Movie);
 
         return await movies
-            .AsNoTracking()
             .Include(movie => movie.Images)
             .OrderByDescending(movie => movie.Release)
             .Select(movie => (MoviesDto)movie)

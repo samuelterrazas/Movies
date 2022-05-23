@@ -2,23 +2,27 @@
 
 public record CreateMovieCommand(
     string Title,
-    int Release,
+    short Release,
     string Duration,
     string MaturityRating,
     string Summary,
-    List<int> Genres,
-    List<MoviePersonDto> Persons
+    string Teaser,
+    ICollection<int> Genres,
+    ICollection<MoviePersonDto> Persons
 ) : IRequest<int>;
+
 
 public class CreateMovieCommandHandler : IRequestHandler<CreateMovieCommand, int>
 {
     private readonly IApplicationDbContext _dbContext;
 
+    
     public CreateMovieCommandHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
+    
     public async Task<int> Handle(CreateMovieCommand request, CancellationToken cancellationToken)
     {
         var movie = new Movie
@@ -28,6 +32,7 @@ public class CreateMovieCommandHandler : IRequestHandler<CreateMovieCommand, int
             Duration = request.Duration,
             MaturityRating = request.MaturityRating,
             Summary = request.Summary,
+            Teaser = $"{Links.YouTube}{request.Teaser}",
             MovieGenres = request.Genres
                 .Select(genreId => new MovieGenre {GenreId = genreId})
                 .ToList(),

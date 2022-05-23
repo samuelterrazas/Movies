@@ -4,12 +4,12 @@ public class MovieGenreConfiguration : IEntityTypeConfiguration<MovieGenre>
 {
     public void Configure(EntityTypeBuilder<MovieGenre> builder)
     {
-        builder.HasKey(m => new {m.GenreId, m.MovieId});
+        builder.HasKey(p => new {p.GenreId, p.MovieId});
 
-        builder.Property(m => m.GenreId)
+        builder.Property(p => p.GenreId)
             .IsRequired();
 
-        builder.Property(m => m.MovieId)
+        builder.Property(p => p.MovieId)
             .IsRequired();
     }
 }

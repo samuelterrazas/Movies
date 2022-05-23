@@ -14,6 +14,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
+
+        if (context.Database.IsSqlServer())
+            await context.Database.MigrateAsync();
+        
         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -23,6 +27,7 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        
         logger.LogError(ex, "An error occurred while migrating or seeding the database");
         throw;
     }
@@ -30,4 +35,4 @@ using (var scope = app.Services.CreateScope())
 
 startup.Configure(app, app.Environment);
 
-app.Run();
+await app.RunAsync();

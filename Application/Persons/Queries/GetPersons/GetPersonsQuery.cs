@@ -1,16 +1,19 @@
 ﻿namespace Movies.Application.Persons.Queries.GetPersons;
 
-public record GetPersonsQuery(int? PageNumber, int? PageSize, string Name) : IRequest<PaginatedResponse<PersonsDto>>;
+public record GetPersonsQuery(short? PageNumber, short? PageSize, string? Name) : IRequest<PaginatedResponse<PersonsDto>>;
+
 
 public class GetPersonsQueryHandler : IRequestHandler<GetPersonsQuery, PaginatedResponse<PersonsDto>>
 {
     private readonly IApplicationDbContext _dbContext;
 
+    
     public GetPersonsQueryHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
-        
+      
+    
     public async Task<PaginatedResponse<PersonsDto>> Handle(GetPersonsQuery request, CancellationToken cancellationToken)
     {
         var persons = _dbContext.Persons.AsQueryable();

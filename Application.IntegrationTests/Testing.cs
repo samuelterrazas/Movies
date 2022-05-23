@@ -7,6 +7,7 @@ public class Testing
     private static IServiceScopeFactory _scopeFactory = null!;
     private static Checkpoint _checkpoint = null!;
 
+    
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
     {
@@ -55,7 +56,7 @@ public class Testing
 
     public static async Task ResetState() => await _checkpoint.Reset(_configuration.GetConnectionString("SQLServerConnection"));
 
-    public static async Task<TEntity> FindAsync<TEntity>(params object[] keyValues) where TEntity : class
+    public static async Task<TEntity?> FindAsync<TEntity>(params object[] keyValues) where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
 

@@ -2,16 +2,19 @@
 
 public record SignupCommand(string Email, string Password, string ConfirmPassword) : IRequest<Result>;
 
+
 public class SignupCommandHandler : IRequestHandler<SignupCommand, Result>
 {
     private readonly IIdentityService _identityService;
     private const string DefaultRole = "User";
 
+    
     public SignupCommandHandler(IIdentityService identityService)
     {
         _identityService = identityService;
     }
-        
+    
+    
     public async Task<Result> Handle(SignupCommand request, CancellationToken cancellationToken)
     {
         var emailExist = await _identityService.GetEmailAsync(request.Email);

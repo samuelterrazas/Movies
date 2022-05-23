@@ -7,11 +7,5 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
         builder.Property(p => p.FullName)
             .IsRequired()
             .HasMaxLength(100);
-            
-        builder.Property(p => p.Created)
-            .HasColumnType("SMALLDATETIME");
-            
-        builder.Property(p => p.LastModified)
-            .HasColumnType("SMALLDATETIME");
     }
 }

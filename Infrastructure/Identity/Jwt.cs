@@ -2,6 +2,6 @@
 
 public class Jwt
 {
-    public string Secret { get; init; }
+    public string Secret { get; init; } = null!;
     public int AccessTokenExpiration { get; init; }
 }

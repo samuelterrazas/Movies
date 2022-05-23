@@ -6,10 +6,10 @@ public static class ServiceExtensions
     {
         services.AddDbContext<ApplicationDbContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("SQLServerConnection"),
-                migration => migration.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
+                contextOptions => contextOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
         );
 
-        services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+        services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>()!);
         
         #region Authentication
         services.Configure<Jwt>(configuration.GetSection("Jwt"));
@@ -45,7 +45,8 @@ public static class ServiceExtensions
         services.AddScoped<IIdentityService, IdentityService>();
         #endregion
 
-        services.AddTransient<IFileStore, AzureFileStore>();
+        services.AddTransient<IFileStore, AzureFileStore>(); // Cloud
+        //services.AddTransient<IFileStore, LocalFileStore>(); // Local
 
         return services;
     }

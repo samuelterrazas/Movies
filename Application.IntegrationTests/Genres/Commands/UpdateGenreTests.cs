@@ -18,7 +18,7 @@ public class UpdateGenreTests : TestBase
 
         // Assert
         genre.Should().NotBeNull();
-        genre.Name.Should().Be(command.Name);
+        genre!.Name.Should().Be(command.Name);
         genre.LastModified.Should().NotBeNull();
     }
 }

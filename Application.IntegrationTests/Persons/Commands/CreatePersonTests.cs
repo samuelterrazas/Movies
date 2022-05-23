@@ -16,7 +16,7 @@ public class CreatePersonTests : TestBase
 
         // Assert
         genre.Should().NotBeNull();
-        genre.FullName.Should().Be("New fullName");
+        genre!.FullName.Should().Be("New fullName");
         genre.LastModified.Should().BeNull();
     }
 }

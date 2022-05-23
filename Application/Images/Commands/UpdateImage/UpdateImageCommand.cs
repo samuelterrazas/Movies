@@ -2,28 +2,31 @@
 
 public record UpdateImageCommand(int Id, int MovieId, IFormFile Image) : IRequest;
 
+
 public class UpdateImageCommandHandler : IRequestHandler<UpdateImageCommand>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IFileStore _fileStore;
 
+    
     public UpdateImageCommandHandler(IApplicationDbContext dbContext, IFileStore fileStore)
     {
         _dbContext = dbContext;
         _fileStore = fileStore;
     }
     
+    
     public async Task<Unit> Handle(UpdateImageCommand request, CancellationToken cancellationToken)
     {
-        var movie = await _dbContext.Movies.FirstOrDefaultAsync(movie => movie.Id == request.MovieId, cancellationToken);
-        
-        if (movie is null)
-            throw new NotFoundException(nameof(Movie), request.MovieId);
-        
         var image = await _dbContext.Images.FirstOrDefaultAsync(image => image.Id == request.Id, cancellationToken);
         
         if (image is null)
             throw new NotFoundException(nameof(Image), request.Id);
+        
+        var movie = await _dbContext.Movies.FirstOrDefaultAsync(movie => movie.Id == request.MovieId, cancellationToken);
+        
+        if (movie is null)
+            throw new NotFoundException(nameof(Movie), request.MovieId);
 
         string url;
         

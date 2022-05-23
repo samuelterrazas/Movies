@@ -1,5 +1,6 @@
 ﻿global using System.ComponentModel;
 global using System.Reflection;
+global using Microsoft.Extensions.Logging;
 global using Microsoft.EntityFrameworkCore;
 global using FluentValidation;
 global using FluentValidation.Results;

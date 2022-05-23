@@ -4,11 +4,11 @@ public class SignupCommandValidator : AbstractValidator<SignupCommand>
 {
     public SignupCommandValidator()
     {
-        RuleFor(s => s.Email)
+        RuleFor(p => p.Email)
             .NotEmpty()
             .EmailAddress();
 
-        RuleFor(s => s.Password)
+        RuleFor(p => p.Password)
             .NotEmpty()
             .Matches("[A-Z]").WithMessage("'{PropertyName}' must have at least one uppercase ('A'-'Z').")
             .Matches("[a-z]").WithMessage("'{PropertyName}' must have at least one lowercase ('a'-'z').")
@@ -17,8 +17,8 @@ public class SignupCommandValidator : AbstractValidator<SignupCommand>
             .MinimumLength(6).WithMessage("'{PropertyName}' must be at least 6 characters.")
             .MaximumLength(16).WithMessage("'{PropertyName}' must be a maximum of 16 characters.");
 
-        RuleFor(s => s.ConfirmPassword)
+        RuleFor(p => p.ConfirmPassword)
             .NotEmpty()
-            .Equal(s => s.Password).WithMessage("The password and confirmation password do not match.");
+            .Equal(p => p.Password).WithMessage("The password and confirmation password do not match.");
     }
 }

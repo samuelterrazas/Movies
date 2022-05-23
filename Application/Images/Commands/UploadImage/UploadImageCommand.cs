@@ -2,16 +2,19 @@
 
 public record UploadImageCommand(int MovieId, IFormFile Image) : IRequest<object>;
 
+
 public class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, object>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IFileStore _fileStore;
 
+    
     public UploadImageCommandHandler(IApplicationDbContext dbContext, IFileStore fileStore)
     {
         _dbContext = dbContext;
         _fileStore = fileStore;
     }
+    
     
     public async Task<object> Handle(UploadImageCommand request, CancellationToken cancellationToken)
     {
@@ -21,14 +24,14 @@ public class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, obj
             throw new NotFoundException(nameof(Movie), request.MovieId);
 
         string url;
-        
+
         await using (var memoryStream = new MemoryStream())
         {
             await request.Image.CopyToAsync(memoryStream, cancellationToken);
 
             var content = memoryStream.ToArray();
             var extension = Path.GetExtension(request.Image.FileName);
-        
+
             url = await _fileStore.SaveFile(content, extension, Container.Movies.GetDescription(), request.Image.ContentType);
         }
 
@@ -37,6 +40,10 @@ public class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, obj
         _dbContext.Images.Add(image);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return new {MovieId = movie.Id, Image = image.Url};
+        return new
+        {
+            MovieId = movie.Id,
+            Image = image.Url
+        };
     }
 }

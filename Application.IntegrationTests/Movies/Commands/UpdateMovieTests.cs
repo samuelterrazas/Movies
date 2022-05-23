@@ -21,6 +21,7 @@ public class UpdateMovieTests : TestBase
             Duration: "2h",
             MaturityRating: "18+",
             Summary: "New summary",
+            Teaser: "New teaser",
             Genres: new List<int> {genreIdA, genreIdB},
             Persons: new List<MoviePersonDto>
             {
@@ -40,6 +41,7 @@ public class UpdateMovieTests : TestBase
             Duration: "2h 40m",
             MaturityRating: "16+",
             Summary: "Updated summary",
+            Teaser: "Updated teaser",
             Genres: new List<int> {genreIdA, genreIdB},
             Persons: new List<MoviePersonDto>
             {

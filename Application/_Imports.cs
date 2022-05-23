@@ -1,9 +1,13 @@
-﻿global using Microsoft.EntityFrameworkCore;
+﻿global using System.Reflection;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Http;
 global using MediatR;
 global using FluentValidation;
 global using Movies.Domain.Entities;
 global using Movies.Domain.Enums;
+global using Movies.Domain.Structs;
+global using Movies.Common.Behaviours;
 global using Movies.Common.Interfaces;
 global using Movies.Common.DTOs;
 global using Movies.Common.Exceptions;

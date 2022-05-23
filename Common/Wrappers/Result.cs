@@ -9,10 +9,12 @@ public class Result
         Token = token;
     }
 
+    
     public bool Succeeded { get; }
     public string[] Errors { get; }
     public string Token { get; }
 
+    
     public static Result Success() => new(true, Array.Empty<string>(), string.Empty);
 
     public static Result Failure(IEnumerable<string> errors) => new(false, errors, string.Empty);

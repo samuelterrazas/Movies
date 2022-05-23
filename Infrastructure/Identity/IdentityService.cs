@@ -4,11 +4,13 @@ public class IdentityService : IIdentityService
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
+    
     public IdentityService(UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
     }
-        
+ 
+    
     public async Task<object> GetEmailAsync(string email) => await _userManager.FindByEmailAsync(email);
 
     public async Task<bool> CheckPasswordAsync(object user, string password)
@@ -42,6 +44,11 @@ public class IdentityService : IIdentityService
 
         var role = (await _userManager.GetRolesAsync(appUser)).First();
 
-        return new TokenParameters {Id = appUser?.Id, Email = appUser?.Email, Role = role};
+        return new TokenParameters
+        {
+            Id = appUser.Id, 
+            Email = appUser.Email, 
+            Role = role
+        };
     }
 }

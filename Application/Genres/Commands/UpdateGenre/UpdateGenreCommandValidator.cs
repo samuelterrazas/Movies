@@ -4,7 +4,7 @@ public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
 {
     public UpdateGenreCommandValidator()
     {
-        RuleFor(g => g.Name)
+        RuleFor(p => p.Name)
             .NotEmpty()
             .MaximumLength(50);
     }

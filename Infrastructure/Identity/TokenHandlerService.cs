@@ -4,11 +4,13 @@ public class TokenHandlerService : ITokenHandlerService
 {
     private readonly Jwt _jwt;
 
+    
     public TokenHandlerService(IOptionsMonitor<Jwt> optionsMonitor)
     {
         _jwt = optionsMonitor.CurrentValue;
     }
-        
+       
+    
     public string GenerateJwtToken(ITokenParameters parameters)
     {
         var jwtTokenHandler = new JwtSecurityTokenHandler();

@@ -1,16 +1,19 @@
 ﻿namespace Movies.Common.DTOs;
 
-public record MoviesDto(int Id, string Title, ICollection<FilesDto> Images)
+public record MoviesDto(int Id, string Title, ICollection<FilesDto>? Images)
 {
-    public static explicit operator MoviesDto(Movie movie) => 
-        new(
-            movie.Id, 
-            movie.Title,
-            movie.Images
-                .Select(file => new FilesDto(file.Id, file.Url))
+    public static explicit operator MoviesDto(Movie movie)
+    {
+        return new MoviesDto(
+            Id: movie.Id, 
+            Title: movie.Title,
+            Images: movie.Images?
+                .Select(file => new FilesDto(Id: file.Id, Url: file.Url))
                 .ToList()
         );
+    }
 }
+
 
 public record MovieDetailsDto(
     int Id, 
@@ -19,37 +22,42 @@ public record MovieDetailsDto(
     string Duration, 
     string MaturityRating, 
     string Summary,
-    ICollection<FilesDto> Images,
-    ICollection<GenresDto> Genres, 
-    ICollection<PersonsDto> DirectedBy, 
-    ICollection<PersonsDto> Cast
+    string Teaser,
+    ICollection<FilesDto>? Images,
+    ICollection<GenresDto>? Genres, 
+    ICollection<PersonsDto>? DirectedBy, 
+    ICollection<PersonsDto>? Cast
 )
 {
     public static explicit operator MovieDetailsDto(Movie movie)
-        => new(
-            movie.Id,
-            movie.Title,
-            movie.Release,
-            movie.Duration,
-            movie.MaturityRating,
-            movie.Summary,
-            movie.Images
-                .Select(file => new FilesDto(file.Id, file.Url))
+    {
+        return new MovieDetailsDto(
+            Id: movie.Id,
+            Title: movie.Title,
+            Release: movie.Release,
+            Duration: movie.Duration,
+            MaturityRating: movie.MaturityRating,
+            Summary: movie.Summary,
+            Teaser: movie.Teaser,
+            Images: movie.Images?
+                .Select(file => new FilesDto(Id: file.Id, Url: file.Url))
                 .ToList(),
-            movie.MovieGenres
-                .Select(movieGenre => new GenresDto(movieGenre.GenreId, movieGenre.Genre.Name))
+            Genres: movie.MovieGenres?
+                .Select(movieGenre => new GenresDto(Id: movieGenre.GenreId, Name: movieGenre.Genre.Name))
                 .ToList(),
-            movie.MoviePersons
+            DirectedBy: movie.MoviePersons?
                 .Where(moviePerson => moviePerson.Role == (byte)Role.Director)
                 .OrderBy(moviePerson => moviePerson.Order)
-                .Select(moviePerson => new PersonsDto(moviePerson.PersonId, moviePerson.Person.FullName))
+                .Select(moviePerson => new PersonsDto(Id: moviePerson.PersonId, FullName: moviePerson.Person.FullName))
                 .ToList(),
-            movie.MoviePersons
+            Cast: movie.MoviePersons?
                 .Where(moviePerson => moviePerson.Role == (byte)Role.Cast)
                 .OrderBy(moviePerson => moviePerson.Order)
-                .Select(moviePerson => new PersonsDto(moviePerson.PersonId, moviePerson.Person.FullName))
+                .Select(moviePerson => new PersonsDto(Id: moviePerson.PersonId, FullName: moviePerson.Person.FullName))
                 .ToList()
         );
+    }
 }
 
-public record MoviePersonDto(int PersonId, byte Role, int Order);
+
+public record MoviePersonDto(int PersonId, byte Role, byte Order);

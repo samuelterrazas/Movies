@@ -17,6 +17,7 @@ public class GetMoviesTests : TestBase
                 Duration = "3h",
                 MaturityRating = "18+",
                 Summary = "New summary",
+                Teaser = "New teaser"
             },
             new Movie
             {
@@ -25,6 +26,7 @@ public class GetMoviesTests : TestBase
                 Duration = "2h 30m",
                 MaturityRating = "16+",
                 Summary = "New summary",
+                Teaser = "New teaser"
             },
             new Movie
             {
@@ -33,6 +35,7 @@ public class GetMoviesTests : TestBase
                 Duration = "2h",
                 MaturityRating = "14+",
                 Summary = "New summary",
+                Teaser = "New teaser"
             }
         );
 

@@ -16,7 +16,7 @@ public class CreateGenreTests : TestBase
 
         // Assert
         genre.Should().NotBeNull();
-        genre.Name.Should().Be("New name");
+        genre!.Name.Should().Be("New name");
         genre.Created.Should().NotBeNull();
         genre.LastModified.Should().BeNull();
     }

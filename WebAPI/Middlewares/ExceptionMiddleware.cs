@@ -29,29 +29,29 @@ public class ExceptionMiddleware
     {
         context.Response.ContentType = "application/problem+json";
 
-        var problem = new ExceptionDetails
-        {
-            Reference = "https://tools.ietf.org/html/rfc7235#section-3.1",
-            Title = "Unauthorized.",
-            StatusCode = StatusCodes.Status401Unauthorized,
-            Message = "You must be logged in to access the content."
-        };
+        var details = new ExceptionDetails
+        (
+            Reference: "https://tools.ietf.org/html/rfc7235#section-3.1",
+            Title: "Unauthorized.",
+            StatusCode: StatusCodes.Status401Unauthorized,
+            Message: "You must be logged in to access the content."
+        );
                     
-        await JsonSerializer.SerializeAsync(context.Response.Body, problem);
+        await JsonSerializer.SerializeAsync(context.Response.Body, details);
     }
 
     private static async Task ForbiddenAccessException(HttpContext context)
     {
         context.Response.ContentType = "application/problem+json";
 
-        var problem = new ExceptionDetails
-        {
-            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.3",
-            Title = "Forbidden.",
-            StatusCode = StatusCodes.Status403Forbidden,
-            Message = "You are not allowed to access the content."
-        };
+        var details = new ExceptionDetails
+        (
+            Reference: "https://tools.ietf.org/html/rfc7231#section-6.5.3",
+            Title: "Forbidden.",
+            StatusCode: StatusCodes.Status403Forbidden,
+            Message: "You are not allowed to access the content."
+        );
 
-        await JsonSerializer.SerializeAsync(context.Response.Body, problem);
+        await JsonSerializer.SerializeAsync(context.Response.Body, details);
     }
 }

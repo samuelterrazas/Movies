@@ -5,10 +5,10 @@ public class GetMoviesQueryValidator : AbstractValidator<GetMoviesQuery>
     public GetMoviesQueryValidator()
     {
         RuleFor(m => m.PageNumber)
-            .GreaterThanOrEqualTo(1);
+            .GreaterThanOrEqualTo((short)1);
 
         RuleFor(m => m.PageSize)
-            .GreaterThanOrEqualTo(10);
+            .GreaterThanOrEqualTo((short)10);
 
         RuleFor(m => m.Title)
             .MinimumLength(3)

@@ -4,31 +4,31 @@ public class UpdateMovieCommandValidator : AbstractValidator<UpdateMovieCommand>
 {
     public UpdateMovieCommandValidator()
     {
-        RuleFor(m => m.Title)
+        RuleFor(p => p.Title)
             .NotEmpty()
             .MaximumLength(60);
 
-        RuleFor(m => m.Release)
+        RuleFor(p => p.Release)
             .NotEmpty()
-            .LessThanOrEqualTo(32767)
-            .GreaterThanOrEqualTo(1895);
+            .LessThanOrEqualTo((short)10895)
+            .GreaterThanOrEqualTo((short)1895);
 
-        RuleFor(m => m.Duration)
-            .NotEmpty()
-            .MaximumLength(10);
-
-        RuleFor(m => m.MaturityRating)
+        RuleFor(p => p.Duration)
             .NotEmpty()
             .MaximumLength(10);
 
-        RuleFor(m => m.Summary)
+        RuleFor(p => p.MaturityRating)
+            .NotEmpty()
+            .MaximumLength(10);
+
+        RuleFor(p => p.Summary)
             .NotEmpty()
             .MaximumLength(1200);
 
-        RuleFor(m => m.Genres)
+        RuleFor(p => p.Genres)
             .NotEmpty();
 
-        RuleFor(m => m.Persons)
+        RuleFor(p => p.Persons)
             .NotEmpty()
             .ForEach(initialCollection => initialCollection
                 .ChildRules(inlineValidator => inlineValidator

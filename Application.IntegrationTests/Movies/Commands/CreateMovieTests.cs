@@ -23,6 +23,7 @@ public class CreateMovieTests : TestBase
             Duration: "2h",
             MaturityRating: "18+",
             Summary: "New summary",
+            Teaser: "New teaser",
             Genres: new List<int> {genreIdA, genreIdB},
             Persons: new List<MoviePersonDto>
             {
@@ -45,8 +46,8 @@ public class CreateMovieTests : TestBase
         movie.Duration.Should().Be("2h");
         movie.MaturityRating.Should().Be("18+");
         movie.Summary.Should().Be("New summary");
-        movie.Genres.Count.Should().Be(2);
-        movie.DirectedBy.Count.Should().Be(1);
-        movie.Cast.Count.Should().Be(2);
+        movie.Genres?.Count.Should().Be(2);
+        movie.DirectedBy?.Count.Should().Be(1);
+        movie.Cast?.Count.Should().Be(2);
     }
 }

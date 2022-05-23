@@ -9,8 +9,8 @@
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
         {
             { typeof(ValidationException), HandleValidationException },
-            { typeof(NotFoundException), HandleNotFoundException },
-            { typeof(BadRequestException), HandleBadRequestException }
+            { typeof(BadRequestException), HandleBadRequestException },
+            { typeof(NotFoundException), HandleNotFoundException }
         };
     }
     
@@ -44,12 +44,12 @@
     private static void HandleInvalidModelStateException(ExceptionContext context)
     {
         var details = new ExceptionDetails
-        {
-            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-            Title = "One or more validation failures have occurred.",
-            StatusCode = 400,
-            Message = context.ModelState
-        };
+        (
+            Reference: "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Title: "One or more validation failures have occurred.",
+            StatusCode: StatusCodes.Status400BadRequest,
+            Message: context.ModelState
+        );
 
         context.Result = new BadRequestObjectResult(details);
         context.ExceptionHandled = true;
@@ -59,18 +59,18 @@
     private static void HandleUnknownException(ExceptionContext context)
     {
         var details = new ExceptionDetails
-        {
-            Reference = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
-            Title = "An error occurred while processing your request.",
-            StatusCode = StatusCodes.Status500InternalServerError,
-            Message = new Dictionary<string, string>
+        (
+            Reference: "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+            Title: "An error occurred while processing your request.",
+            StatusCode: StatusCodes.Status500InternalServerError,
+            Message: new Dictionary<string, string>
             {
-                {"Source", context.Exception.Source},
-                {"TargetSite", Convert.ToString(context.Exception.TargetSite)},
+                {"Source", context.Exception.Source!},
+                {"TargetSite", Convert.ToString(context.Exception.TargetSite)!},
                 {"Message", context.Exception.Message},
                 {"File", Details(context.Exception)}
             }
-        };
+        );
 
         context.Result = new ObjectResult(details) {StatusCode = StatusCodes.Status500InternalServerError};
         context.ExceptionHandled = true;
@@ -92,7 +92,7 @@
             traceStr.Append(' ');
         }
 
-        return Convert.ToString(traceStr);
+        return Convert.ToString(traceStr)!;
     }
     
     // StatusCode 400 - FluentValidation
@@ -101,12 +101,12 @@
         var exception = (ValidationException)context.Exception;
 
         var details = new ExceptionDetails
-        {
-            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
-            Title = "One or more validation failures have occurred.",
-            StatusCode = 400,
-            Message = exception.Errors
-        };
+        (
+            Reference: "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Title: "One or more validation failures have occurred.",
+            StatusCode: StatusCodes.Status400BadRequest,
+            Message: exception.Errors
+        );
 
         context.Result = new BadRequestObjectResult(details);
         context.ExceptionHandled = true;
@@ -118,12 +118,12 @@
         var exception = (BadRequestException)context.Exception;
 
         var details = new ExceptionDetails
-        {
-            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-            Title = "One or more validation failures have occurred.",
-            StatusCode = 400,
-            Message = exception.Message
-        };
+        (
+            Reference: "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Title: "One or more validation failures have occurred.",
+            StatusCode: StatusCodes.Status400BadRequest,
+            Message: exception.Message
+        );
 
         context.Result = new BadRequestObjectResult(details);
         context.ExceptionHandled = true;
@@ -135,12 +135,12 @@
         var exception = (NotFoundException)context.Exception;
 
         var details = new ExceptionDetails
-        {
-            Reference = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-            Title = "The specified resource was not found.",
-            StatusCode = 404,
-            Message = exception.Message
-        };
+        (
+            Reference: "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+            Title: "The specified resource was not found.",
+            StatusCode: StatusCodes.Status404NotFound,
+            Message: exception.Message
+        );
 
         context.Result = new NotFoundObjectResult(details);
         context.ExceptionHandled = true;

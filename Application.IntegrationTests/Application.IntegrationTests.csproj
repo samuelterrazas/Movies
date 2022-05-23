@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Movies.Application.IntegrationTests</RootNamespace>
-        <AssemblyName>Movies.Application.IntegrationTests</AssemblyName>
-        <Nullable>disable</Nullable>
+        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>false</IsPackable>
+        <RootNamespace>Movies.Application.IntegrationTests</RootNamespace>
+        <AssemblyName>Movies.Application.IntegrationTests</AssemblyName>
     </PropertyGroup>
     
     <ItemGroup>

@@ -1,8 +1,7 @@
-﻿namespace Movies.Common.Extensions
+﻿namespace Movies.Common.Extensions;
+
+public static class QueryableExtension
 {
-    public static class QueryableExtension
-    {
-        public static Task<PaginatedResponse<TDestination>> PaginatedResponseAsync<TDestination>(this IQueryable<TDestination> queryable, int pageNumber, int pageSize)
-            => PaginatedResponse<TDestination>.CreateAsync(queryable, pageNumber, pageSize);
-    }
+    public static Task<PaginatedResponse<TDestination>> PaginatedResponseAsync<TDestination>(this IQueryable<TDestination> queryable, short pageNumber, short pageSize)
+        => PaginatedResponse<TDestination>.CreateAsync(queryable, pageNumber, pageSize);
 }

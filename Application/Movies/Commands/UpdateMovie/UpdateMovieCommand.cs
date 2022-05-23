@@ -3,23 +3,27 @@
 public record UpdateMovieCommand(
     int Id,
     string Title,
-    int Release,
+    short Release,
     string Duration,
     string MaturityRating,
     string Summary,
-    List<int> Genres,
-    List<MoviePersonDto> Persons
+    string Teaser,
+    ICollection<int> Genres,
+    ICollection<MoviePersonDto> Persons
 ) : IRequest;
+
 
 public class UpdateMovieCommandHandler : IRequestHandler<UpdateMovieCommand>
 {
     private readonly IApplicationDbContext _dbContext;
 
+    
     public UpdateMovieCommandHandler(IApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
+    
     public async Task<Unit> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
     {
         var movie = await _dbContext.Movies
@@ -35,6 +39,7 @@ public class UpdateMovieCommandHandler : IRequestHandler<UpdateMovieCommand>
         movie.Duration = request.Duration;
         movie.MaturityRating = request.MaturityRating;
         movie.Summary = request.Summary;
+        movie.Teaser = $"{Links.YouTube}{request.Teaser}";
         movie.MovieGenres = request.Genres
             .Select(genreId => new MovieGenre {GenreId = genreId})
             .ToList();

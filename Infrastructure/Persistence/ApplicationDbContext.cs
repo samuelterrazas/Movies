@@ -4,12 +4,14 @@
     {
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
+        
         public DbSet<Genre> Genres => Set<Genre>();
         public DbSet<Movie> Movies => Set<Movie>();
         public DbSet<Person> Persons => Set<Person>();
         public DbSet<Image> Images => Set<Image>();
         public DbSet<MovieGenre> MovieGenres => Set<MovieGenre>();
         public DbSet<MoviePerson> MoviePersons => Set<MoviePerson>();
+        
         
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
@@ -18,14 +20,20 @@
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.Created = DateTime.UtcNow;
+                        entry.Entity.Created = DateTime.Now;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.LastModified = DateTime.UtcNow;
+                        entry.Entity.LastModified = DateTime.Now;
                         break;
                 }
             }
             return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<DateTime>().HaveColumnType("SMALLDATETIME");
+            configurationBuilder.Properties<string>().AreUnicode(false);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -44,16 +52,20 @@
             builder.Ignore<IdentityUserToken<string>>();
             builder.Ignore<IdentityRoleClaim<string>>();
 
-            builder.Entity<ApplicationUser>()
-                .Ignore(u => u.PhoneNumber)
-                .Ignore(u => u.PhoneNumberConfirmed)
-                .Ignore(u => u.TwoFactorEnabled)
-                .Ignore(u => u.LockoutEnd)
-                .Ignore(u => u.LockoutEnabled)
-                .Ignore(u => u.AccessFailedCount);
-
-            builder.Entity<ApplicationUser>().ToTable("Users");
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.ToTable("Users");
+                
+                entity.Ignore(u => u.PhoneNumber);
+                entity.Ignore(u => u.PhoneNumberConfirmed);
+                entity.Ignore(u => u.TwoFactorEnabled);
+                entity.Ignore(u => u.LockoutEnd);
+                entity.Ignore(u => u.LockoutEnabled);
+                entity.Ignore(u => u.AccessFailedCount);
+            });
+            
             builder.Entity<IdentityRole>().ToTable("Roles");
+
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
         }
     }

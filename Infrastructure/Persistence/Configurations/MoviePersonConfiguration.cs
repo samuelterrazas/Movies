@@ -4,20 +4,18 @@ public class MoviePersonConfiguration : IEntityTypeConfiguration<MoviePerson>
 {
     public void Configure(EntityTypeBuilder<MoviePerson> builder)
     {
-        builder.HasKey(m => new {m.MovieId, m.PersonId});
+        builder.HasKey(p => new {p.MovieId, p.PersonId});
 
-        builder.Property(m => m.MovieId)
+        builder.Property(p => p.MovieId)
             .IsRequired();
 
-        builder.Property(m => m.PersonId)
+        builder.Property(p => p.PersonId)
             .IsRequired();
 
-        builder.Property(m => m.Role)
-            .IsRequired()
-            .HasColumnType("TINYINT");
+        builder.Property(p => p.Role)
+            .IsRequired();
 
-        builder.Property(m => m.Order)
-            .IsRequired()
-            .HasColumnType("TINYINT");
+        builder.Property(p => p.Order)
+            .IsRequired();
     }
 }

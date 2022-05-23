@@ -4,30 +4,27 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
 {
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
-        builder.Property(m => m.Title)
+        builder.Property(p => p.Title)
             .IsRequired()
             .HasMaxLength(50);
 
-        builder.Property(m => m.Release)
-            .IsRequired()
-            .HasColumnType("SMALLINT");
+        builder.Property(p => p.Release)
+            .IsRequired();
 
-        builder.Property(m => m.Duration)
-            .IsRequired()
-            .HasMaxLength(10);
-
-        builder.Property(m => m.MaturityRating)
+        builder.Property(p => p.Duration)
             .IsRequired()
             .HasMaxLength(10);
 
-        builder.Property(m => m.Summary)
+        builder.Property(p => p.MaturityRating)
+            .IsRequired()
+            .HasMaxLength(10);
+
+        builder.Property(p => p.Summary)
             .IsRequired()
             .HasMaxLength(1500);
 
-        builder.Property(m => m.Created)
-            .HasColumnType("SMALLDATETIME");
-            
-        builder.Property(m => m.LastModified)
-            .HasColumnType("SMALLDATETIME");
+        builder.Property(p => p.Teaser)
+            .IsRequired()
+            .HasMaxLength(100);
     }
 }

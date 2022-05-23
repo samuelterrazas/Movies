@@ -4,17 +4,11 @@ public class ImageConfiguration : IEntityTypeConfiguration<Image>
 {
     public void Configure(EntityTypeBuilder<Image> builder)
     {
-        builder.Property(f => f.MovieId)
+        builder.Property(p => p.MovieId)
             .IsRequired();
 
-        builder.Property(f => f.Url)
+        builder.Property(p => p.Url)
             .IsRequired()
             .HasMaxLength(200);
-        
-        builder.Property(f => f.Created)
-            .HasColumnType("SMALLDATETIME");
-            
-        builder.Property(f => f.LastModified)
-            .HasColumnType("SMALLDATETIME");
     }
 }

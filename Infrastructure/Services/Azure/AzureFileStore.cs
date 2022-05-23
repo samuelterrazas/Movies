@@ -1,14 +1,16 @@
-﻿namespace Movies.Infrastructure.Azure;
+﻿namespace Movies.Infrastructure.Services.Azure;
 
 public class AzureFileStore : IFileStore
 {
     private readonly string _connectionStr;
         
+    
     public AzureFileStore(IConfiguration configuration)
     {
         _connectionStr = configuration.GetConnectionString("AzureStorage");
     }
-        
+      
+    
     public async Task<string> SaveFile(byte[] content, string extension, string container, string contentType)
     {
         var client = new BlobContainerClient(_connectionStr, container);
@@ -23,7 +25,7 @@ public class AzureFileStore : IFileStore
 
         await blob.UploadAsync(new BinaryData(content), blobUploadOptions);
 
-        return blob.Uri.ToString();
+        return Convert.ToString(blob.Uri)!;
     }
 
     public async Task<string> EditFile(byte[] content, string extension, string container, string path, string contentType)
@@ -35,8 +37,7 @@ public class AzureFileStore : IFileStore
 
     public async Task DeleteFile(string path, string container)
     {
-        if (string.IsNullOrEmpty(path))
-            return;
+        if (string.IsNullOrEmpty(path)) return;
 
         var client = new BlobContainerClient(_connectionStr, container);
         await client.CreateIfNotExistsAsync();

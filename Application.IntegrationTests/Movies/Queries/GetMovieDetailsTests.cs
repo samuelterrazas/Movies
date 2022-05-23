@@ -22,6 +22,7 @@ public class GetMovieDetailsTests : TestBase
             Duration: "2h",
             MaturityRating: "18+",
             Summary: "New summary",
+            Teaser: "New teaser",
             Genres: new List<int> {genreIdA, genreIdB},
             Persons: new List<MoviePersonDto>
             {

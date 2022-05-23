@@ -18,7 +18,7 @@ public class UpdatePersonTests : TestBase
 
         // Assert
         genre.Should().NotBeNull();
-        genre.FullName.Should().Be(command.FullName);
+        genre!.FullName.Should().Be(command.FullName);
         genre.LastModified.Should().NotBeNull();
     }
 }

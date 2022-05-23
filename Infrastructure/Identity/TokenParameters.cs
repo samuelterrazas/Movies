@@ -2,7 +2,7 @@
 
 public class TokenParameters : ITokenParameters
 {
-    public string Id { get; init; }
-    public string Email { get; init; }
-    public string Role { get; init; }
+    public string Id { get; init; } = null!;
+    public string Email { get; init; } = null!;
+    public string Role { get; init; } = null!;
 }

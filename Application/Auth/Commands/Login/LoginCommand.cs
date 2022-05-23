@@ -2,16 +2,19 @@
 
 public record LoginCommand(string Email, string Password) : IRequest<Result>;
 
+
 public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
 {
     private readonly IIdentityService _identityService;
     private readonly ITokenHandlerService _tokenHandlerService;
 
+    
     public LoginCommandHandler(IIdentityService identityService, ITokenHandlerService tokenHandlerService)
     {
         _identityService = identityService;
         _tokenHandlerService = tokenHandlerService;
     }
+    
     
     public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
