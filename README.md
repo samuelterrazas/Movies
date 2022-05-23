@@ -19,22 +19,30 @@ Web API REST de películas implementando la plantilla de [Clean Architecture](ht
 
 
 ## Instrucciones
-### Configuración del ConnectionStrings para Azure y SQL Server
+### Configuraciones
 * **SQLServerConnectionr**: Cadena de conexión a su base de datos SQL
-* **AzureStorage**: Crear una cuenta de almacenamiento, dirigirse a _Claves de acceso_, copiar la _cadena de conexión_ de la key1 y pegarla en el .json
-> WebAPI: appsettings.Development.json
-```json
-"ConnectionStrings": {
-  "SQLServerConnection": "",
-  "AzureStorage": ""
-}
-```
-> Application.IntegrationTests: appsettings.json
+> _WebAPI: appsettings.Development.json_
 ```json
 "ConnectionStrings": {
   "SQLServerConnection": ""
 }
 ```
+> _Application.IntegrationTests: appsettings.json_
+```json
+"ConnectionStrings": {
+  "SQLServerConnection": ""
+}
+```
+* **AzureStorage**: Crear una cuenta de almacenamiento, dirigirse a _Claves de acceso_, copiar la _cadena de conexión_ de la key1 y pegarla en el .json
+> _WebAPI: appsettings.json_
+```json
+"ConnectionStrings": {
+  "AzureStorage": ""
+}
+```
+* **LocalStorage**: En caso de elegir almacenar los archivos de manera local, cambiar la inyección del servicio
+> _Infrastructure: ServiceExtensions.cs_
+<img src="https://user-images.githubusercontent.com/66186644/169736045-b6b05765-e0b4-41c6-85cd-a56f21a4792c.png"/>
 
 
 ### Migración y ejecución
